@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('fields.add_field_to', ['category' => $category->getTranslation('name', 'en')]))
 
@@ -40,7 +40,7 @@
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge" dir="rtl">
                                 <input type="text" name="label[ar]" class="form-control @error('label.ar') is-invalid @enderror" 
-                                    placeholder="مثلاً: عدد الغرف" value="{{ old('label.ar') }}" required />
+                                    placeholder="Ù…Ø«Ù„Ø§Ù‹: Ø¹Ø¯Ø¯ Ø§Ù„ØºØ±Ù" value="{{ old('label.ar') }}" required />
                                 <span class="input-group-text"><i class="bx bx-tag"></i></span>
                             </div>
                             @error('label.ar') <div class="invalid-feedback d-block small mt-1">{{ $message }}</div> @enderror
@@ -107,7 +107,7 @@
     const typeSelect = document.getElementById('typeSelect');
     const optionsWrapper = document.getElementById('optionsWrapper');
 
-    // تبديل ظهور مربع الخيارات بناءً على النوع
+    // ØªØ¨Ø¯ÙŠÙ„ Ø¸Ù‡ÙˆØ± Ù…Ø±Ø¨Ø¹ Ø§Ù„Ø®ÙŠØ§Ø±Ø§Øª Ø¨Ù†Ø§Ø¡Ù‹ Ø¹Ù„Ù‰ Ø§Ù„Ù†ÙˆØ¹
     typeSelect.addEventListener('change', function() {
         if (this.value === 'select') {
             optionsWrapper.classList.remove('d-none');
@@ -116,7 +116,7 @@
         }
     });
 
-    // تحويل النص المدخل في التيكست أريا إلى مصفوفة قبل الإرسال
+    // ØªØ­ÙˆÙŠÙ„ Ø§Ù„Ù†Øµ Ø§Ù„Ù…Ø¯Ø®Ù„ ÙÙŠ Ø§Ù„ØªÙŠÙƒØ³Øª Ø£Ø±ÙŠØ§ Ø¥Ù„Ù‰ Ù…ØµÙÙˆÙØ© Ù‚Ø¨Ù„ Ø§Ù„Ø¥Ø±Ø³Ø§Ù„
     document.getElementById('dynamicFieldForm').addEventListener('submit', function(e) {
         const type = typeSelect.value;
         const input = document.getElementById('options_input').value;

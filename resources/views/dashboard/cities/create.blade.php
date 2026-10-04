@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('cities.create_title'))
 
@@ -47,7 +47,7 @@
                         </div>
                     </div>
 
-                    {{-- تم توزيع الحقول هنا ليصبح السويتش في نفس الصف --}}
+                    {{-- ØªÙ… ØªÙˆØ²ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ„ Ù‡Ù†Ø§ Ù„ÙŠØµØ¨Ø­ Ø§Ù„Ø³ÙˆÙŠØªØ´ ÙÙŠ Ù†ÙØ³ Ø§Ù„ØµÙ --}}
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label class="form-label">{{ __('cities.latitude') }}</label>
@@ -67,7 +67,7 @@
                                 <span class="input-group-text">{{ __('cities.km') }}</span>
                             </div>
                         </div>
-                        {{-- حقل التفعيل المضاف --}}
+                        {{-- Ø­Ù‚Ù„ Ø§Ù„ØªÙØ¹ÙŠÙ„ Ø§Ù„Ù…Ø¶Ø§Ù --}}
                         <div class="col-md-3 mb-3 d-flex flex-column justify-content-center pt-md-4">
                             <div class="form-check form-switch mb-0">
                                 <input type="hidden" name="is_active" value="0">
@@ -97,7 +97,7 @@
     var map = L.map('map').setView([33.5138, 36.2765], 11); 
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+        attribution: 'Â© OpenStreetMap contributors'
     }).addTo(map);
 
     var marker = L.marker([33.5138, 36.2765], { draggable: true }).addTo(map);

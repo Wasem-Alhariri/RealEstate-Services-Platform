@@ -1,10 +1,10 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('activities.page_title'))
 
 @section('content')
 
-{{-- الإحصائيات الملونة --}}
+{{-- Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„Ù…Ù„ÙˆÙ†Ø© --}}
 <div class="row g-4 mb-4">
     <div class="col-sm-6 col-xl-4">
         <div class="card shadow-none border-0 rounded-4" style="background-color: #dbdee0">
@@ -55,10 +55,10 @@
     </div>
 </div>
 
-{{-- جدول البيانات --}}
+{{-- Ø¬Ø¯ÙˆÙ„ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª --}}
 <div class="card rounded-4 overflow-hidden">
     <div class="card-header border-bottom">
-        {{-- السطر العلوي: العنوان وزر الإضافة في الزاوية --}}
+        {{-- Ø§Ù„Ø³Ø·Ø± Ø§Ù„Ø¹Ù„ÙˆÙŠ: Ø§Ù„Ø¹Ù†ÙˆØ§Ù† ÙˆØ²Ø± Ø§Ù„Ø¥Ø¶Ø§ÙØ© ÙÙŠ Ø§Ù„Ø²Ø§ÙˆÙŠØ© --}}
         <div class="d-flex align-items-center justify-content-between mb-3">
             <h5 class="card-title mb-0">{{ __('activities.management_header') }}</h5>
             @can('create-activities')
@@ -68,7 +68,7 @@
             @endcan
         </div>
         
-        {{-- السطر السفلي: حقل البحث ممتد على كامل السطر --}}
+        {{-- Ø§Ù„Ø³Ø·Ø± Ø§Ù„Ø³ÙÙ„ÙŠ: Ø­Ù‚Ù„ Ø§Ù„Ø¨Ø­Ø« Ù…Ù…ØªØ¯ Ø¹Ù„Ù‰ ÙƒØ§Ù…Ù„ Ø§Ù„Ø³Ø·Ø± --}}
         <form action="{{ route('activities.index') }}" method="GET" id="activities-filter-form">
             <div class="row">
                 <div class="col-12">
@@ -198,7 +198,7 @@
                 const $form = $('#activities-filter-form');
                 let searchActivitiesTimeout;
 
-                // 1. البحث الفوري أثناء الكتابة (Debounce 500ms)
+                // 1. Ø§Ù„Ø¨Ø­Ø« Ø§Ù„ÙÙˆØ±ÙŠ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„ÙƒØªØ§Ø¨Ø© (Debounce 500ms)
                 $(document).on('input', '#search-activity-input', function() {
                     clearTimeout(searchActivitiesTimeout);
                     
@@ -207,14 +207,14 @@
                     }, 500);
                 });
 
-                // 2. منع الـ Submit العشوائي عند ضغط Enter داخل حقل البحث
+                // 2. Ù…Ù†Ø¹ Ø§Ù„Ù€ Submit Ø§Ù„Ø¹Ø´ÙˆØ§Ø¦ÙŠ Ø¹Ù†Ø¯ Ø¶ØºØ· Enter Ø¯Ø§Ø®Ù„ Ø­Ù‚Ù„ Ø§Ù„Ø¨Ø­Ø«
                 $form.on('submit', function(e) {
                     if (e.originalEvent && e.originalEvent.submitter === undefined) {
                         e.preventDefault();
                     }
                 });
 
-                // 3. تأكيد الحذف
+                // 3. ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø­Ø°Ù
                 $(document).on('submit', '.delete-activity-form', function(e) {
                     if(!confirm("{{ __('activities.delete_confirmation') }}")) {
                         e.preventDefault();

@@ -1,12 +1,12 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('services.title'))
 
 @section('content')
 
-{{-- الإحصائيات العلويّة المحدثة (4 كروت) --}}
+{{-- Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„Ø¹Ù„ÙˆÙŠÙ‘Ø© Ø§Ù„Ù…Ø­Ø¯Ø«Ø© (4 ÙƒØ±ÙˆØª) --}}
 <div class="row g-4 mb-4">
-    {{-- 1. الطلبات المعلقة --}}
+    {{-- 1. Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ø¹Ù„Ù‚Ø© --}}
     <div class="col-sm-6 col-xl-3">
         <div class="card shadow-none border-0 rounded-4" style="background-color: #dbdee0">
             <div class="card-body p-3">
@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    {{-- 2. الخدمات النشطة (Approved) --}}
+    {{-- 2. Ø§Ù„Ø®Ø¯Ù…Ø§Øª Ø§Ù„Ù†Ø´Ø·Ø© (Approved) --}}
     <div class="col-sm-6 col-xl-3">
         <div class="card shadow-none border-0 rounded-4" style="background-color: #dbdee0">
             <div class="card-body p-3 text-nowrap">
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    {{-- 3. الخدمات الموقوفة (Inactive) --}}
+    {{-- 3. Ø§Ù„Ø®Ø¯Ù…Ø§Øª Ø§Ù„Ù…ÙˆÙ‚ÙˆÙØ© (Inactive) --}}
     <div class="col-sm-6 col-xl-3">
         <div class="card shadow-none border-0 rounded-4" style="background-color: #dbdee0">
             <div class="card-body p-3 text-nowrap">
@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    {{-- 4. إجمالي الخدمات --}}
+    {{-- 4. Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø®Ø¯Ù…Ø§Øª --}}
     <div class="col-sm-6 col-xl-3">
         <div class="card shadow-none border-0 rounded-4" style="background-color: #dbdee0">
             <div class="card-body p-3 text-nowrap">
@@ -67,12 +67,12 @@
     </div>
 </div>
 
-{{-- جدول البيانات مع التصفية الفورية --}}
+{{-- Ø¬Ø¯ÙˆÙ„ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ù…Ø¹ Ø§Ù„ØªØµÙÙŠØ© Ø§Ù„ÙÙˆØ±ÙŠØ© --}}
 <div class="card rounded-4 overflow-hidden shadow-sm">
     <div class="card-header border-bottom">
         <h5 class="card-title mb-3">{{ __('services.management_card') }}</h5>
         
-        {{-- تم ربط الـ id وإعادة توزيع الأعمدة بشكل متساوٍ --}}
+        {{-- ØªÙ… Ø±Ø¨Ø· Ø§Ù„Ù€ id ÙˆØ¥Ø¹Ø§Ø¯Ø© ØªÙˆØ²ÙŠØ¹ Ø§Ù„Ø£Ø¹Ù…Ø¯Ø© Ø¨Ø´ÙƒÙ„ Ù…ØªØ³Ø§ÙˆÙ --}}
         <form action="{{ route('services.index') }}" method="GET" id="services-filter-form">
             <div class="row g-3">
                 <div class="col-12 col-md-4">
@@ -176,7 +176,7 @@
         </table>
     </div>
 
-    {{-- الباجينيشن المعدل --}}
+    {{-- Ø§Ù„Ø¨Ø§Ø¬ÙŠÙ†ÙŠØ´Ù† Ø§Ù„Ù…Ø¹Ø¯Ù„ --}}
     @if($services->hasPages() || $services->total() > 0)
     <div class="card-footer border-top d-flex flex-column flex-md-row align-items-center justify-content-between py-3">
         <div class="text-muted small">
@@ -202,12 +202,12 @@
                 const $form = $('#services-filter-form');
                 let searchFilterTimeout;
 
-                // 1. الفلترة الفورية بمجرد تغيير القوائم المنسدلة (الحالة / نوع الخدمة)
+                // 1. Ø§Ù„ÙÙ„ØªØ±Ø© Ø§Ù„ÙÙˆØ±ÙŠØ© Ø¨Ù…Ø¬Ø±Ø¯ ØªØºÙŠÙŠØ± Ø§Ù„Ù‚ÙˆØ§Ø¦Ù… Ø§Ù„Ù…Ù†Ø³Ø¯Ù„Ø© (Ø§Ù„Ø­Ø§Ù„Ø© / Ù†ÙˆØ¹ Ø§Ù„Ø®Ø¯Ù…Ø©)
                 $(document).on('change', '.immediate-select', function() {
                     $form.submit();
                 });
 
-                // 2. الفلترة الفورية أثناء الكتابة في حقل البحث بعد التوقف بـ 500 ملي ثانية
+                // 2. Ø§Ù„ÙÙ„ØªØ±Ø© Ø§Ù„ÙÙˆØ±ÙŠØ© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„ÙƒØªØ§Ø¨Ø© ÙÙŠ Ø­Ù‚Ù„ Ø§Ù„Ø¨Ø­Ø« Ø¨Ø¹Ø¯ Ø§Ù„ØªÙˆÙ‚Ù Ø¨Ù€ 500 Ù…Ù„ÙŠ Ø«Ø§Ù†ÙŠØ©
                 $(document).on('input', '#search-service-input', function() {
                     clearTimeout(searchFilterTimeout);
                     

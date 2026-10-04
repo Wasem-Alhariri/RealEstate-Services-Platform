@@ -1,10 +1,10 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('sliders.title'))
 
 @section('content')
 
-{{-- إحصائيات السلايدر --}}
+{{-- Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„Ø³Ù„Ø§ÙŠØ¯Ø± --}}
 <div class="row g-4 mb-4">
     <div class="col-sm-6 col-xl-4">
         <div class="card shadow-none border-0 rounded-4" style="background-color: #dbdee0">
@@ -47,13 +47,13 @@
     </div>
 </div>
 
-{{-- الفلترة والبحث الفوري --}}
+{{-- Ø§Ù„ÙÙ„ØªØ±Ø© ÙˆØ§Ù„Ø¨Ø­Ø« Ø§Ù„ÙÙˆØ±ÙŠ --}}
 <div class="card mb-4 rounded-4 overflow-hidden shadow-sm">
     <div class="card-header border-bottom d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
         <h5 class="mb-0 fw-bold">{{ __('sliders.management_card') }}</h5>
         <div class="d-flex flex-column flex-sm-row gap-3 w-100 w-md-auto">
             
-            {{-- إضافة id للفورم للتحكم به برمجياً عبر الـ JS --}}
+            {{-- Ø¥Ø¶Ø§ÙØ© id Ù„Ù„ÙÙˆØ±Ù… Ù„Ù„ØªØ­ÙƒÙ… Ø¨Ù‡ Ø¨Ø±Ù…Ø¬ÙŠØ§Ù‹ Ø¹Ø¨Ø± Ø§Ù„Ù€ JS --}}
             <form action="{{ route('sliders.index') }}" method="GET" id="sliders-filter-form" class="d-flex gap-2 flex-grow-1">
                 <input type="text" name="search" id="search-slider-input" value="{{ request('search') }}" class="form-control" placeholder="{{ __('sliders.search_placeholder') }}" autocomplete="off">
                 
@@ -74,7 +74,7 @@
     </div>
 </div>
 
-{{-- عرض الكاردات --}}
+{{-- Ø¹Ø±Ø¶ Ø§Ù„ÙƒØ§Ø±Ø¯Ø§Øª --}}
 <div class="row g-4">
     @forelse($sliders as $slider)
     <div class="col-md-6 col-lg-4">
@@ -195,7 +195,7 @@
     @endforelse
 </div>
 
-{{-- الباجينيشن --}}
+{{-- Ø§Ù„Ø¨Ø§Ø¬ÙŠÙ†ÙŠØ´Ù† --}}
 <div class="card shadow-sm border-0 rounded-4 overflow-hidden mt-4">
     @if($sliders->total() > 0)
     <div class="card-footer bg-white border-0 d-flex flex-column flex-md-row align-items-center justify-content-between py-3">
@@ -223,12 +223,12 @@
                 const $form = $('#sliders-filter-form');
                 let searchSlidersTimeout;
 
-                // 1. الفلترة الفورية عند تغيير القائمة المنسدلة (الحالة)
+                // 1. Ø§Ù„ÙÙ„ØªØ±Ø© Ø§Ù„ÙÙˆØ±ÙŠØ© Ø¹Ù†Ø¯ ØªØºÙŠÙŠØ± Ø§Ù„Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…Ù†Ø³Ø¯Ù„Ø© (Ø§Ù„Ø­Ø§Ù„Ø©)
                 $(document).on('change', '.immediate-select', function() {
                     $form.submit();
                 });
 
-                // 2. الفلترة الفورية أثناء الكتابة في حقل البحث (Debounce 500ms)
+                // 2. Ø§Ù„ÙÙ„ØªØ±Ø© Ø§Ù„ÙÙˆØ±ÙŠØ© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„ÙƒØªØ§Ø¨Ø© ÙÙŠ Ø­Ù‚Ù„ Ø§Ù„Ø¨Ø­Ø« (Debounce 500ms)
                 $(document).on('input', '#search-slider-input', function() {
                     clearTimeout(searchSlidersTimeout);
                     
@@ -237,7 +237,7 @@
                     }, 500);
                 });
 
-                // تحديث الحالة AJAX الأصلي
+                // ØªØ­Ø¯ÙŠØ« Ø§Ù„Ø­Ø§Ù„Ø© AJAX Ø§Ù„Ø£ØµÙ„ÙŠ
                 $(document).on('change', '.status-toggle', function() {
                     const checkbox = $(this);
                     const id = checkbox.data('id');
@@ -271,13 +271,13 @@
                         },
                         error: function() {
                             checkbox.prop('checked', !isActive);
-                            alert('شيء ما تعطل! لم يتم تحديث الحالة بنجاح.');
+                            alert('Ø´ÙŠØ¡ Ù…Ø§ ØªØ¹Ø·Ù„! Ù„Ù… ÙŠØªÙ… ØªØ­Ø¯ÙŠØ« Ø§Ù„Ø­Ø§Ù„Ø© Ø¨Ù†Ø¬Ø§Ø­.');
                             window.location.reload();
                         }
                     });
                 });
 
-                // تأكيد الحذف
+                // ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø­Ø°Ù
                 $(document).on('submit', '.delete-form', function(e) {
                     if(!confirm("{{ __('sliders.confirm_delete') }}")) {
                         e.preventDefault();

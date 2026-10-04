@@ -1,0 +1,50 @@
+/* Layout: Header (Premium Modern UX - Soft Overrides only) */
+
+.layout-navbar {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05) !important;
+    border-radius: var(--radius-xl) !important;
+    margin-top: 1rem !important;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+[data-bs-theme="dark"] .layout-navbar {
+    background: rgba(30, 41, 59, 0.7) !important;
+    border-color: rgba(51, 65, 85, 0.6);
+}
+
+/* Dropdowns premium look */
+.navbar-nav .dropdown-menu {
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    box-shadow: 0 15px 35px -5px rgba(0,0,0,0.1), 0 5px 15px -5px rgba(0,0,0,0.05) !important;
+    border-radius: 12px !important;
+    padding: 0.5rem !important;
+    animation: dropdownFade 0.2s ease;
+}
+
+@keyframes dropdownFade {
+    from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.navbar-nav .dropdown-item {
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.navbar-nav .dropdown-item:hover, .navbar-nav .dropdown-item:focus {
+    background-color: #f8fafc !important;
+    color: var(--color-primary) !important;
+}
+
+.navbar-nav .dropdown-item.active {
+    background-color: var(--color-primary-light) !important;
+    color: var(--color-primary) !important;
+}
+
+.badge-notifications {
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+}

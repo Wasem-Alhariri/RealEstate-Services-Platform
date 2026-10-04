@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('categories.add_sub'))
 
@@ -19,10 +19,10 @@
             <div class="card-body pt-5">
                 <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    {{-- توجيه المستخدم بعد الحفظ إلى جدول الفئات الفرعية --}}
+                    {{-- ØªÙˆØ¬ÙŠÙ‡ Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ø¨Ø¹Ø¯ Ø§Ù„Ø­ÙØ¸ Ø¥Ù„Ù‰ Ø¬Ø¯ÙˆÙ„ Ø§Ù„ÙØ¦Ø§Øª Ø§Ù„ÙØ±Ø¹ÙŠØ© --}}
                     <input type="hidden" name="return_url" value="{{ route('categories.sub.index') }}">
                     
-                    {{-- اختيار الفئة الأساسية (Parent Category Selection) --}}
+                    {{-- Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„ÙØ¦Ø© Ø§Ù„Ø£Ø³Ø§Ø³ÙŠØ© (Parent Category Selection) --}}
                     <div class="row mb-6">
                         <label class="col-sm-2 col-form-label" for="parent_id">{{ __('categories.column_parent') }}</label>
                         <div class="col-sm-10">
@@ -61,7 +61,7 @@
                             <div class="input-group input-group-merge" dir="rtl">
                                 <input type="text" name="name[ar]" id="name_ar" 
                                     class="form-control @error('name.ar') is-invalid @enderror" 
-                                    placeholder="مثلاً: للإيجار" value="{{ old('name.ar') }}" required />
+                                    placeholder="Ù…Ø«Ù„Ø§Ù‹: Ù„Ù„Ø¥ÙŠØ¬Ø§Ø±" value="{{ old('name.ar') }}" required />
                                 <span class="input-group-text"><i class="bx bx-edit"></i></span>
                             </div>
                             @error('name.ar') <div class="invalid-feedback d-block small mt-1">{{ $message }}</div> @enderror

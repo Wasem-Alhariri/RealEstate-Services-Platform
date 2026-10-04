@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('reports.title'))
 
@@ -60,7 +60,7 @@
     <div class="card-header border-bottom">
         <h5 class="card-title mb-3">{{ __('reports.management_card') }}</h5>
         
-        {{-- إسناد ID للفورم للتحكم به برمجياً عبر الـ JavaScript --}}
+        {{-- Ø¥Ø³Ù†Ø§Ø¯ ID Ù„Ù„ÙÙˆØ±Ù… Ù„Ù„ØªØ­ÙƒÙ… Ø¨Ù‡ Ø¨Ø±Ù…Ø¬ÙŠØ§Ù‹ Ø¹Ø¨Ø± Ø§Ù„Ù€ JavaScript --}}
         <form action="{{ route('reports.index') }}" method="GET" id="reports-filter-form">
             <div class="row g-3">
                 <div class="col-12 col-md-8">
@@ -207,12 +207,12 @@
                 const $form = $('#reports-filter-form');
                 let searchReportsTimeout;
 
-                // 1. الفلترة الفورية عند تغيير القائمة المنسدلة للـ Status
+                // 1. Ø§Ù„ÙÙ„ØªØ±Ø© Ø§Ù„ÙÙˆØ±ÙŠØ© Ø¹Ù†Ø¯ ØªØºÙŠÙŠØ± Ø§Ù„Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…Ù†Ø³Ø¯Ù„Ø© Ù„Ù„Ù€ Status
                 $(document).on('change', '.immediate-report-select', function() {
                     $form.submit();
                 });
 
-                // 2. البحث الفوري أثناء الكتابة مع استخدام الـ Debounce (500ms) لمنع الضغط العالي على السيرفر
+                // 2. Ø§Ù„Ø¨Ø­Ø« Ø§Ù„ÙÙˆØ±ÙŠ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„ÙƒØªØ§Ø¨Ø© Ù…Ø¹ Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ù€ Debounce (500ms) Ù„Ù…Ù†Ø¹ Ø§Ù„Ø¶ØºØ· Ø§Ù„Ø¹Ø§Ù„ÙŠ Ø¹Ù„Ù‰ Ø§Ù„Ø³ÙŠØ±ÙØ±
                 $(document).on('input', '#search-report-input', function() {
                     clearTimeout(searchReportsTimeout);
                     
@@ -221,7 +221,7 @@
                     }, 500);
                 });
 
-                // 3. تأكيد الحذف بطريقة موحدة مع باقي النظام
+                // 3. ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø­Ø°Ù Ø¨Ø·Ø±ÙŠÙ‚Ø© Ù…ÙˆØ­Ø¯Ø© Ù…Ø¹ Ø¨Ø§Ù‚ÙŠ Ø§Ù„Ù†Ø¸Ø§Ù…
                 $(document).on('submit', '.delete-report-form', function(e) {
                     if(!confirm("{{ __('reports.confirm_delete') }}")) {
                         e.preventDefault();

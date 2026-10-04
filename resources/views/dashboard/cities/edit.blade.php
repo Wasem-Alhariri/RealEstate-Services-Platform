@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('cities.edit_title'))
 
@@ -48,7 +48,7 @@
                         </div>
                     </div>
 
-                    {{-- تم توزيع الحقول هنا ليصبح السويتش في نفس الصف بشكل متناسق مع واجهة الـ Create --}}
+                    {{-- ØªÙ… ØªÙˆØ²ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ„ Ù‡Ù†Ø§ Ù„ÙŠØµØ¨Ø­ Ø§Ù„Ø³ÙˆÙŠØªØ´ ÙÙŠ Ù†ÙØ³ Ø§Ù„ØµÙ Ø¨Ø´ÙƒÙ„ Ù…ØªÙ†Ø§Ø³Ù‚ Ù…Ø¹ ÙˆØ§Ø¬Ù‡Ø© Ø§Ù„Ù€ Create --}}
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label class="form-label">{{ __('cities.latitude') }}</label>
@@ -68,7 +68,7 @@
                                 <span class="input-group-text">{{ __('cities.km') }}</span>
                             </div>
                         </div>
-                        {{-- حقل التفعيل المضاف مع جلب الحالة المخزنة تلقائياً --}}
+                        {{-- Ø­Ù‚Ù„ Ø§Ù„ØªÙØ¹ÙŠÙ„ Ø§Ù„Ù…Ø¶Ø§Ù Ù…Ø¹ Ø¬Ù„Ø¨ Ø§Ù„Ø­Ø§Ù„Ø© Ø§Ù„Ù…Ø®Ø²Ù†Ø© ØªÙ„Ù‚Ø§Ø¦ÙŠØ§Ù‹ --}}
                         <div class="col-md-3 mb-3 d-flex flex-column justify-content-center pt-md-4">
                             <div class="form-check form-switch mb-0">
                                 <input type="hidden" name="is_active" value="0">
@@ -94,7 +94,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-    // جلب البيانات من السيرفر (PHP to JS)
+    // Ø¬Ù„Ø¨ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ù…Ù† Ø§Ù„Ø³ÙŠØ±ÙØ± (PHP to JS)
     var savedLat = {{ $city->latitude }};
     var savedLng = {{ $city->longitude }};
     var savedRadius = {{ $city->radius }} * 1000; 
@@ -103,7 +103,7 @@
     var map = L.map('map').setView([savedLat, savedLng], 12); 
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+        attribution: 'Â© OpenStreetMap contributors'
     }).addTo(map);
 
     // 2. Draggable Marker at saved location
@@ -129,7 +129,7 @@
         updateFields(pos.lat, pos.lng);
     });
 
-    // 6. Search (استخدام الترجمة داخل الجافاسكربت)
+    // 6. Search (Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„ØªØ±Ø¬Ù…Ø© Ø¯Ø§Ø®Ù„ Ø§Ù„Ø¬Ø§ÙØ§Ø³ÙƒØ±Ø¨Øª)
     document.getElementById('search-btn').onclick = function(e) {
         e.preventDefault(); 
         var query = document.getElementById('map-search').value;

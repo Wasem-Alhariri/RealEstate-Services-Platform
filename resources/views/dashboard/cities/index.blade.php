@@ -1,10 +1,10 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('cities.title'))
 
 @section('content')
 
-{{-- بطاقات الإحصائيات الملونة --}}
+{{-- Ø¨Ø·Ø§Ù‚Ø§Øª Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„Ù…Ù„ÙˆÙ†Ø© --}}
 <div class="row g-4 mb-4">
     {{-- Total Cities --}}
     <div class="col-sm-6 col-xl-4">
@@ -65,10 +65,10 @@
     </div>
 </div>
 
-{{-- جدول عرض البيانات --}}
+{{-- Ø¬Ø¯ÙˆÙ„ Ø¹Ø±Ø¶ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª --}}
 <div class="card rounded-4 overflow-hidden"> 
     <div class="card-header border-bottom">
-        {{-- السطر العلوي: العنوان وزر الإضافة في الزاوية المقابلة --}}
+        {{-- Ø§Ù„Ø³Ø·Ø± Ø§Ù„Ø¹Ù„ÙˆÙŠ: Ø§Ù„Ø¹Ù†ÙˆØ§Ù† ÙˆØ²Ø± Ø§Ù„Ø¥Ø¶Ø§ÙØ© ÙÙŠ Ø§Ù„Ø²Ø§ÙˆÙŠØ© Ø§Ù„Ù…Ù‚Ø§Ø¨Ù„Ø© --}}
         <div class="d-flex align-items-center justify-content-between mb-3">
             <h5 class="card-title mb-0">{{ __('cities.title') }}</h5>
             @can('create-cities')
@@ -78,7 +78,7 @@
             @endcan
         </div>
         
-        {{-- السطر السفلي: حقل البحث ممتد على كامل السطر --}}
+        {{-- Ø§Ù„Ø³Ø·Ø± Ø§Ù„Ø³ÙÙ„ÙŠ: Ø­Ù‚Ù„ Ø§Ù„Ø¨Ø­Ø« Ù…Ù…ØªØ¯ Ø¹Ù„Ù‰ ÙƒØ§Ù…Ù„ Ø§Ù„Ø³Ø·Ø± --}}
         <form action="{{ route('cities.index') }}" method="GET" id="cities-filter-form">
             <div class="row">
                 <div class="col-12">
@@ -208,7 +208,7 @@
                 const $form = $('#cities-filter-form');
                 let searchCitiesTimeout;
 
-                // 1. البحث الفوري الفوري عند الكتابة (Debounce 500ms)
+                // 1. Ø§Ù„Ø¨Ø­Ø« Ø§Ù„ÙÙˆØ±ÙŠ Ø§Ù„ÙÙˆØ±ÙŠ Ø¹Ù†Ø¯ Ø§Ù„ÙƒØªØ§Ø¨Ø© (Debounce 500ms)
                 $(document).on('input', '#search-city-input', function() {
                     clearTimeout(searchCitiesTimeout);
                     
@@ -217,14 +217,14 @@
                     }, 500);
                 });
 
-                // 2. منع الـ Submit التلقائي غير المرغوب به عند ضغط Enter
+                // 2. Ù…Ù†Ø¹ Ø§Ù„Ù€ Submit Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ ØºÙŠØ± Ø§Ù„Ù…Ø±ØºÙˆØ¨ Ø¨Ù‡ Ø¹Ù†Ø¯ Ø¶ØºØ· Enter
                 $form.on('submit', function(e) {
                     if (e.originalEvent && e.originalEvent.submitter === undefined) {
                         e.preventDefault();
                     }
                 });
 
-                // 3. تأكيد عملية الحذف
+                // 3. ØªØ£ÙƒÙŠØ¯ Ø¹Ù…Ù„ÙŠØ© Ø§Ù„Ø­Ø°Ù
                 $(document).on('submit', '.delete-city-form', function(e) {
                     if(!confirm("{{ __('cities.delete_confirm') }}")) {
                         e.preventDefault();

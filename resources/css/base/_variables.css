@@ -1,0 +1,72 @@
+:root {
+    /* Color Palette - Modern Navy & Indigo */
+    --color-primary: #4F46E5; /* Indigo 600 */
+    --color-primary-hover: #4338CA; /* Indigo 700 */
+    --color-primary-light: #EEF2FF; /* Indigo 50 */
+    
+    --color-secondary: #64748B; /* Slate 500 */
+    --color-secondary-hover: #475569; /* Slate 600 */
+    --color-secondary-light: #F8FAFC; /* Slate 50 */
+    
+    --color-success: #10B981; /* Emerald 500 */
+    --color-success-light: #D1FAE5;
+    --color-danger: #EF4444; /* Red 500 */
+    --color-danger-light: #FEE2E2;
+    --color-warning: #F59E0B; /* Amber 500 */
+    --color-warning-light: #FEF3C7;
+    --color-info: #3B82F6; /* Blue 500 */
+    --color-info-light: #DBEAFE;
+
+    /* Backgrounds & Surfaces */
+    --bg-body: #F1F5F9; /* Slate 100 */
+    --bg-surface: #FFFFFF;
+    --bg-surface-hover: #F8FAFC;
+
+    /* Text Colors */
+    --text-primary: #0F172A; /* Slate 900 */
+    --text-secondary: #475569; /* Slate 600 */
+    --text-muted: #94A3B8; /* Slate 400 */
+    --text-inverse: #FFFFFF;
+
+    /* Borders & Shadows */
+    --border-color: #E2E8F0; /* Slate 200 */
+    --border-color-focus: #C7D2FE;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-float: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    /* Typography */
+    --font-family-base: 'Public Sans', system-ui, -apple-system, sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+
+    /* Layout & Sizing */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-pill: 9999px;
+    --sidebar-width: 260px;
+    --sidebar-collapsed-width: 80px;
+    --navbar-height: 70px;
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Mode Variables (Optional for later, but good to have foundation) */
+[data-bs-theme="dark"] {
+    --bg-body: #0F172A;
+    --bg-surface: #1E293B;
+    --bg-surface-hover: #334155;
+    
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #64748B;
+    
+    --border-color: #334155;
+    --color-primary-light: rgba(79, 70, 229, 0.15);
+}

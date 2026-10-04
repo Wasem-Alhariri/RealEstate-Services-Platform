@@ -1,0 +1,23 @@
+@import './base/_variables.css';
+@import './base/_base.css';
+
+/* Components */
+@import './components/_card.css';
+@import './components/_table.css';
+@import './components/_button.css';
+@import './components/_badge.css';
+@import './components/_form.css';
+@import './components/_avatar.css';
+
+/* Layouts */
+@import './layouts/_sidebar.css';
+@import './layouts/_navbar.css';
+@import './layouts/_wrapper.css';
+
+/* Utilities */
+.text-heading { color: var(--text-primary) !important; }
+.text-muted { color: var(--text-muted) !important; }
+.bg-surface { background-color: var(--bg-surface) !important; }
+.shadow-custom { box-shadow: var(--shadow-md) !important; }
+.shadow-hover:hover { box-shadow: var(--shadow-lg) !important; transform: translateY(-2px); transition: all var(--transition-normal); }
+.rounded-xl { border-radius: var(--radius-xl) !important; }

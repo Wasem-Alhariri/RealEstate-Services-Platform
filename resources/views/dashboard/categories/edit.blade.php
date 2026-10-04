@@ -1,6 +1,6 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
-{{-- العنوان يظهر اسم الفئة المترجم في التاب الخاص بالمتصفح --}}
+{{-- Ø§Ù„Ø¹Ù†ÙˆØ§Ù† ÙŠØ¸Ù‡Ø± Ø§Ø³Ù… Ø§Ù„ÙØ¦Ø© Ø§Ù„Ù…ØªØ±Ø¬Ù… ÙÙŠ Ø§Ù„ØªØ§Ø¨ Ø§Ù„Ø®Ø§Øµ Ø¨Ø§Ù„Ù…ØªØµÙØ­ --}}
 @section('title', __('categories.edit_title') . ' - ' . $category->getTranslation('name', app()->getLocale()))
 
 @section('page-style')
@@ -16,7 +16,7 @@
     <div class="col-xxl">
         <div class="card mb-6">
             <div class="card-header d-flex align-items-center justify-content-between border-bottom">
-                {{-- تحديد العنوان بناءً على نوع الفئة --}}
+                {{-- ØªØ­Ø¯ÙŠØ¯ Ø§Ù„Ø¹Ù†ÙˆØ§Ù† Ø¨Ù†Ø§Ø¡Ù‹ Ø¹Ù„Ù‰ Ù†ÙˆØ¹ Ø§Ù„ÙØ¦Ø© --}}
                 <h5 class="mb-0">
                     {{ $category->parent_id ? __('categories.edit_sub') : __('categories.edit_main') }}
                 </h5>
@@ -29,7 +29,7 @@
                     @csrf
                     @method('PUT')
 
-                    {{-- اختيار الفئة الأب: يظهر فقط للفئات الفرعية --}}
+                    {{-- Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„ÙØ¦Ø© Ø§Ù„Ø£Ø¨: ÙŠØ¸Ù‡Ø± ÙÙ‚Ø· Ù„Ù„ÙØ¦Ø§Øª Ø§Ù„ÙØ±Ø¹ÙŠØ© --}}
                     @if($category->parent_id)
                         <input type="hidden" name="return_url" value="{{ route('categories.sub.index') }}">
                         <div class="row mb-6">
@@ -118,7 +118,7 @@
                             <button type="submit" class="btn btn-primary btn-lg">
                                 <i class="bx bx-save me-1"></i> {{ __('categories.update_category') }}
                             </button>
-                            {{-- العودة الذكية --}}
+                            {{-- Ø§Ù„Ø¹ÙˆØ¯Ø© Ø§Ù„Ø°ÙƒÙŠØ© --}}
                             <a href="{{ $category->parent_id ? route('categories.sub.index') : route('categories.main.index') }}" class="btn btn-outline-secondary btn-lg ms-2">
                                 {{ __('categories.cancel') }}
                             </a>

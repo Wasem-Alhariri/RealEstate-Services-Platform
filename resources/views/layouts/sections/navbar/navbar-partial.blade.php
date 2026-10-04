@@ -56,19 +56,20 @@ use Illuminate\Support\Facades\Route;
     }
 </style>
 
+<div class="layout-navbar">
 @if(isset($navbarFull))
-<div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
-    <a href="{{ url('/') }}" class="app-brand-link gap-2">
-        <span class="app-brand-logo demo">@include('_partials.macros')</span>
-        <span class="app-brand-text demo menu-text fw-bold text-heading">{{ config('variables.templateName') }}</span>
+<div class="navbar-brand">
+    <a href="{{ url('/') }}" class="app-brand-link">
+        <span class="app-brand-logo">@include('_partials.macros')</span>
+        <span class="app-brand-text fw-bold">{{ config('variables.templateName') }}</span>
     </a>
 </div>
 @endif
 
 @if(!isset($navbarHideToggle))
-<div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 {{ isset($contentNavbar) ? 'd-xl-none' : '' }}">
-    <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
-        <i class="icon-base bx bx-menu icon-md"></i>
+<div class="layout-menu-toggle d-xl-none me-4">
+    <a class="nav-link px-0" href="javascript:void(0)">
+        <i class="bx bx-menu fs-3"></i>
     </a>
 </div>
 @endif
@@ -248,4 +249,5 @@ use Illuminate\Support\Facades\Route;
             </ul>
         </li>
     </ul>
+</div>
 </div>

@@ -1,10 +1,10 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('categories.sub_title'))
 
 @section('content')
 
-{{-- الإحصائيات الملونة --}}
+{{-- Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„Ù…Ù„ÙˆÙ†Ø© --}}
 <div class="row g-4 mb-4">
     <div class="col-sm-6 col-xl-4">
         <div class="card shadow-none border-0 rounded-4" style="background-color: #dbdee0">
@@ -47,7 +47,7 @@
     </div>
 </div>
 
-{{-- جدول البيانات مع الفلترة --}}
+{{-- Ø¬Ø¯ÙˆÙ„ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ù…Ø¹ Ø§Ù„ÙÙ„ØªØ±Ø© --}}
 <div class="card rounded-4 overflow-hidden">
     <div class="card-header border-bottom">
         <div class="d-flex align-items-center justify-content-between mb-3">
@@ -59,14 +59,14 @@
 
         <form action="{{ route('categories.sub.index') }}" method="GET" id="sub-categories-filter-form">
             <div class="row g-3">
-                {{-- حقل البحث يستحوذ على نصف مساحة السطر كاملاً --}}
+                {{-- Ø­Ù‚Ù„ Ø§Ù„Ø¨Ø­Ø« ÙŠØ³ØªØ­ÙˆØ° Ø¹Ù„Ù‰ Ù†ØµÙ Ù…Ø³Ø§Ø­Ø© Ø§Ù„Ø³Ø·Ø± ÙƒØ§Ù…Ù„Ø§Ù‹ --}}
                 <div class="col-12 col-md-6">
                     <div class="input-group input-group-merge">
                         <span class="input-group-text"><i class="bx bx-search"></i></span>
                         <input type="text" name="search" id="search-sub-category-input" value="{{ request('search') }}" class="form-control" placeholder="{{ __('categories.search_placeholder') }}" autocomplete="off">
                     </div>
                 </div>
-                {{-- قائمة الأقسام الأب تأخذ الربع --}}
+                {{-- Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ø£Ù‚Ø³Ø§Ù… Ø§Ù„Ø£Ø¨ ØªØ£Ø®Ø° Ø§Ù„Ø±Ø¨Ø¹ --}}
                 <div class="col-12 col-sm-6 col-md-3">
                     <select name="parent_id" class="form-select immediate-sub-select">
                         <option value="">{{ __('categories.all_parents') }}</option>
@@ -77,7 +77,7 @@
                         @endforeach
                     </select>
                 </div>
-                {{-- قائمة الحالة تأخذ الربع المتبقي ليقفل السطر تماماً --}}
+                {{-- Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ø­Ø§Ù„Ø© ØªØ£Ø®Ø° Ø§Ù„Ø±Ø¨Ø¹ Ø§Ù„Ù…ØªØ¨Ù‚ÙŠ Ù„ÙŠÙ‚ÙÙ„ Ø§Ù„Ø³Ø·Ø± ØªÙ…Ø§Ù…Ø§Ù‹ --}}
                 <div class="col-12 col-sm-6 col-md-3">
                     <select name="status" class="form-select immediate-sub-select">
                         <option value="">{{ __('categories.all_statuses') }}</option>
@@ -194,12 +194,12 @@
                 const $form = $('#sub-categories-filter-form');
                 let searchSubCategoriesTimeout;
 
-                // 1. الفلترة الفورية بمجرد تغيير خيارات الـ Select
+                // 1. Ø§Ù„ÙÙ„ØªØ±Ø© Ø§Ù„ÙÙˆØ±ÙŠØ© Ø¨Ù…Ø¬Ø±Ø¯ ØªØºÙŠÙŠØ± Ø®ÙŠØ§Ø±Ø§Øª Ø§Ù„Ù€ Select
                 $(document).on('change', '.immediate-sub-select', function() {
                     $form.submit();
                 });
 
-                // 2. البحث التلقائي الفوري أثناء الكتابة بخاصية الـ Debounce (500ms)
+                // 2. Ø§Ù„Ø¨Ø­Ø« Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ Ø§Ù„ÙÙˆØ±ÙŠ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„ÙƒØªØ§Ø¨Ø© Ø¨Ø®Ø§ØµÙŠØ© Ø§Ù„Ù€ Debounce (500ms)
                 $(document).on('input', '#search-sub-category-input', function() {
                     clearTimeout(searchSubCategoriesTimeout);
                     
@@ -208,7 +208,7 @@
                     }, 500);
                 });
 
-                // 3. تأكيد الحذف
+                // 3. ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø­Ø°Ù
                 $(document).on('submit', '.delete-sub-category-form', function(e) {
                     if(!confirm("{{ __('categories.confirm_delete') }}")) {
                         e.preventDefault();

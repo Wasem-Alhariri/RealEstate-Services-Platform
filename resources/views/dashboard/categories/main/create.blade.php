@@ -1,10 +1,10 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('categories.add_title'))
 
 @section('page-style')
 <style>
-    /* تحسين مظهر الحقول التي تدعم اتجاه اليمين لليسار داخل مجموعات الإدخال */
+    /* ØªØ­Ø³ÙŠÙ† Ù…Ø¸Ù‡Ø± Ø§Ù„Ø­Ù‚ÙˆÙ„ Ø§Ù„ØªÙŠ ØªØ¯Ø¹Ù… Ø§ØªØ¬Ø§Ù‡ Ø§Ù„ÙŠÙ…ÙŠÙ† Ù„Ù„ÙŠØ³Ø§Ø± Ø¯Ø§Ø®Ù„ Ù…Ø¬Ù…ÙˆØ¹Ø§Øª Ø§Ù„Ø¥Ø¯Ø®Ø§Ù„ */
     .input-group-merge[dir="rtl"] .form-control { 
         border-left: 0; 
         border-top-left-radius: 0; 
@@ -29,7 +29,7 @@
             <div class="card-body pt-5">
                 <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    {{-- ملاحظة: الـ return_url يفضل أن يمرر من الكنترولر أو يستخدم كـ Hidden input --}}
+                    {{-- Ù…Ù„Ø§Ø­Ø¸Ø©: Ø§Ù„Ù€ return_url ÙŠÙØ¶Ù„ Ø£Ù† ÙŠÙ…Ø±Ø± Ù…Ù† Ø§Ù„ÙƒÙ†ØªØ±ÙˆÙ„Ø± Ø£Ùˆ ÙŠØ³ØªØ®Ø¯Ù… ÙƒÙ€ Hidden input --}}
                     <input type="hidden" name="return_url" value="{{ route('categories.main.index') }}">
 
                     {{-- Name EN --}}

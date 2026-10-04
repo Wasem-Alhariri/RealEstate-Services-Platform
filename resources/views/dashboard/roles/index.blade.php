@@ -1,10 +1,10 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('roles.management_title'))
 
 @section('content')
 
-{{-- بطاقات الإحصائيات الملونة --}}
+{{-- Ø¨Ø·Ø§Ù‚Ø§Øª Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„Ù…Ù„ÙˆÙ†Ø© --}}
 <div class="row g-4 mb-4">
     <div class="col-sm-6 col-xl-4">
         <div class="card shadow-none border-0 rounded-4" style="background-color: #dbdee0">
@@ -53,10 +53,10 @@
     </div>
 </div>
 
-{{-- جدول عرض البيانات وجدول الإدارة --}}
+{{-- Ø¬Ø¯ÙˆÙ„ Ø¹Ø±Ø¶ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª ÙˆØ¬Ø¯ÙˆÙ„ Ø§Ù„Ø¥Ø¯Ø§Ø±Ø© --}}
 <div class="card rounded-4 overflow-hidden">
     <div class="card-header border-bottom">
-        {{-- السطر العلوي: العنوان وزر الإضافة في الزاوية المقابلة --}}
+        {{-- Ø§Ù„Ø³Ø·Ø± Ø§Ù„Ø¹Ù„ÙˆÙŠ: Ø§Ù„Ø¹Ù†ÙˆØ§Ù† ÙˆØ²Ø± Ø§Ù„Ø¥Ø¶Ø§ÙØ© ÙÙŠ Ø§Ù„Ø²Ø§ÙˆÙŠØ© Ø§Ù„Ù…Ù‚Ø§Ø¨Ù„Ø© --}}
         <div class="d-flex align-items-center justify-content-between mb-3">
             <h5 class="card-title mb-0">{{ __('roles.management_title') }}</h5>
             @can('create-roles')
@@ -66,7 +66,7 @@
             @endcan
         </div>
         
-        {{-- السطر السفلي: حقل البحث ممتد بالكامل على سطر مستقل --}}
+        {{-- Ø§Ù„Ø³Ø·Ø± Ø§Ù„Ø³ÙÙ„ÙŠ: Ø­Ù‚Ù„ Ø§Ù„Ø¨Ø­Ø« Ù…Ù…ØªØ¯ Ø¨Ø§Ù„ÙƒØ§Ù…Ù„ Ø¹Ù„Ù‰ Ø³Ø·Ø± Ù…Ø³ØªÙ‚Ù„ --}}
         <form action="{{ route('roles.index') }}" method="GET" id="roles-filter-form">
             <div class="row">
                 <div class="col-12">
@@ -196,7 +196,7 @@
                 const $form = $('#roles-filter-form');
                 let searchRolesTimeout;
 
-                // 1. البحث التلقائي الفوري الموزون (Debounce 500ms)
+                // 1. Ø§Ù„Ø¨Ø­Ø« Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ Ø§Ù„ÙÙˆØ±ÙŠ Ø§Ù„Ù…ÙˆØ²ÙˆÙ† (Debounce 500ms)
                 $(document).on('input', '#search-role-input', function() {
                     clearTimeout(searchRolesTimeout);
                     
@@ -205,14 +205,14 @@
                     }, 500);
                 });
 
-                // 2. منع الـ Submit التلقائي غير المقصود عند ضغط مفتاح Enter داخل حقل البحث
+                // 2. Ù…Ù†Ø¹ Ø§Ù„Ù€ Submit Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ ØºÙŠØ± Ø§Ù„Ù…Ù‚ØµÙˆØ¯ Ø¹Ù†Ø¯ Ø¶ØºØ· Ù…ÙØªØ§Ø­ Enter Ø¯Ø§Ø®Ù„ Ø­Ù‚Ù„ Ø§Ù„Ø¨Ø­Ø«
                 $form.on('submit', function(e) {
                     if (e.originalEvent && e.originalEvent.submitter === undefined) {
                         e.preventDefault();
                     }
                 });
 
-                // 3. تأكيد عملية الحذف
+                // 3. ØªØ£ÙƒÙŠØ¯ Ø¹Ù…Ù„ÙŠØ© Ø§Ù„Ø­Ø°Ù
                 $(document).on('submit', '.delete-role-form', function(e) {
                     if(!confirm("{{ __('roles.delete_confirm') }}")) {
                         e.preventDefault();

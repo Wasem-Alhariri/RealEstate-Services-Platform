@@ -1,10 +1,10 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('roles.create_role_title'))
 
 @section('page-style')
 <style>
-    /* صندوق الصلاحيات مع سكرول */
+    /* ØµÙ†Ø¯ÙˆÙ‚ Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ§Øª Ù…Ø¹ Ø³ÙƒØ±ÙˆÙ„ */
     .permissions-container {
         max-height: 350px;
         overflow-y: auto;
@@ -14,7 +14,7 @@
         background-color: #f8f9fa;
     }
 
-    /* تحسين شكل الـ Checkbox عند الاختيار */
+    /* ØªØ­Ø³ÙŠÙ† Ø´ÙƒÙ„ Ø§Ù„Ù€ Checkbox Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø®ØªÙŠØ§Ø± */
     .perm-card {
         transition: all 0.2s ease;
         border: 1px solid transparent;

@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('services.request_details'))
 
@@ -13,7 +13,7 @@
     .gallery-img:hover { transform: scale(1.05); }
     .main-img { width: 100%; height: 250px; object-fit: cover; border-radius: 0.5rem; border: 1px solid #ebedf0; }
     
-    /* تنسيق أزرار الرفض والقبول المخصص */
+    /* ØªÙ†Ø³ÙŠÙ‚ Ø£Ø²Ø±Ø§Ø± Ø§Ù„Ø±ÙØ¶ ÙˆØ§Ù„Ù‚Ø¨ÙˆÙ„ Ø§Ù„Ù…Ø®ØµØµ */
     .btn-approve { background-color: #28c76f !important; border-color: #28c76f !important; color: #fff !important; }
     .btn-approve:hover { background-color: #24b364 !important; box-shadow: 0 8px 25px -8px #28c76f; }
     .btn-reject { background-color: #ea5455 !important; border-color: #ea5455 !important; color: #fff !important; }
@@ -35,7 +35,7 @@
 </div>
 
 <div class="row">
-    {{-- القسم الأيمن: البيانات --}}
+    {{-- Ø§Ù„Ù‚Ø³Ù… Ø§Ù„Ø£ÙŠÙ…Ù†: Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª --}}
     <div class="col-xl-7 col-lg-7 col-md-12 mb-4">
         <div class="card mb-4 shadow-sm rounded-4">
             <h5 class="card-header border-bottom bg-transparent fw-bold">{{ __('services.service_info') }}</h5>
@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        {{-- الحقول الديناميكية مع حل مشكلة الـ Null --}}
+        {{-- Ø§Ù„Ø­Ù‚ÙˆÙ„ Ø§Ù„Ø¯ÙŠÙ†Ø§Ù…ÙŠÙƒÙŠØ© Ù…Ø¹ Ø­Ù„ Ù…Ø´ÙƒÙ„Ø© Ø§Ù„Ù€ Null --}}
         @if($service->fieldValues->isNotEmpty())
         <div class="card mb-4 shadow-sm rounded-4 border-0">
             <h5 class="card-header border-bottom bg-transparent fw-bold">{{ __('services.dynamic_features') }}</h5>
@@ -92,7 +92,7 @@
                         <div class="col-md-6 mb-3">
                             <div class="d-flex flex-column bg-light p-3 rounded-3 border border-gray-100">
                                 <span class="text-muted small mb-1">
-                                    {{-- استخدام الـ Safe Navigation لتجنب الإيرور --}}
+                                    {{-- Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ù€ Safe Navigation Ù„ØªØ¬Ù†Ø¨ Ø§Ù„Ø¥ÙŠØ±ÙˆØ± --}}
                                     {{ $field->field?->getTranslation('label', app()->getLocale()) ?? 'Field Not Found' }}
                                 </span>
                                 <span class="fw-bold text-heading">{{ $field->value }}</span>
@@ -114,7 +114,7 @@
         </div>
     </div>
 
-    {{-- القسم الأيسر: ميديا وموقع وأزرار --}}
+    {{-- Ø§Ù„Ù‚Ø³Ù… Ø§Ù„Ø£ÙŠØ³Ø±: Ù…ÙŠØ¯ÙŠØ§ ÙˆÙ…ÙˆÙ‚Ø¹ ÙˆØ£Ø²Ø±Ø§Ø± --}}
     <div class="col-xl-5 col-lg-5 col-md-12">
         <div class="card mb-4 shadow-sm rounded-4">
             <h5 class="card-header border-bottom bg-transparent fw-bold">{{ __('services.media_gallery') }}</h5>
@@ -157,12 +157,12 @@
                 @endif
             </div>
         </div>
-{{-- أزرار التحكم بالتنسيق الاحترافي --}}
+{{-- Ø£Ø²Ø±Ø§Ø± Ø§Ù„ØªØ­ÙƒÙ… Ø¨Ø§Ù„ØªÙ†Ø³ÙŠÙ‚ Ø§Ù„Ø§Ø­ØªØ±Ø§ÙÙŠ --}}
 @can('manage-services') 
     <div class="card bg-transparent shadow-none border-0 mt-4">
         <div class="card-body p-0">
             <div class="row g-3">
-                {{-- الحالة 1: الطلب معلق - يظهر قبول ورفض --}}
+                {{-- Ø§Ù„Ø­Ø§Ù„Ø© 1: Ø§Ù„Ø·Ù„Ø¨ Ù…Ø¹Ù„Ù‚ - ÙŠØ¸Ù‡Ø± Ù‚Ø¨ÙˆÙ„ ÙˆØ±ÙØ¶ --}}
                 @if($service->status->value === \App\Enum\StatusEnum::PENDING->value)
                     <div class="col-12 col-md-6">
                         <form action="{{ route('services.update-status', $service->id) }}" method="POST" onsubmit="return confirm('{{ __("services.approve_confirm_msg") }}')">
@@ -180,7 +180,7 @@
                         </button>
                     </div>
 
-                {{-- الحالة 2: الخدمة مقبولة - يظهر زر إيقاف يفتح مودال السبب --}}
+                {{-- Ø§Ù„Ø­Ø§Ù„Ø© 2: Ø§Ù„Ø®Ø¯Ù…Ø© Ù…Ù‚Ø¨ÙˆÙ„Ø© - ÙŠØ¸Ù‡Ø± Ø²Ø± Ø¥ÙŠÙ‚Ø§Ù ÙŠÙØªØ­ Ù…ÙˆØ¯Ø§Ù„ Ø§Ù„Ø³Ø¨Ø¨ --}}
                 @elseif($service->status->value === \App\Enum\StatusEnum::APPROVED->value)
                     <div class="col-12">
                         <button type="button" class="btn btn-inactive w-100 btn-lg rounded-3 py-3 fw-bold shadow-sm"
@@ -189,7 +189,7 @@
                         </button>
                     </div>
 
-                {{-- الحالة 3: الخدمة موقوفة - يظهر زر إعادة تفعيل --}}
+                {{-- Ø§Ù„Ø­Ø§Ù„Ø© 3: Ø§Ù„Ø®Ø¯Ù…Ø© Ù…ÙˆÙ‚ÙˆÙØ© - ÙŠØ¸Ù‡Ø± Ø²Ø± Ø¥Ø¹Ø§Ø¯Ø© ØªÙØ¹ÙŠÙ„ --}}
                 @elseif($service->status->value === \App\Enum\StatusEnum::INACTIVE->value)
                     <div class="col-12">
                         <form action="{{ route('services.update-status', $service->id) }}" method="POST" onsubmit="return confirm('{{ __("services.activate_confirm_msg") }}')">
@@ -206,7 +206,7 @@
     </div>
 @endcan
 
-{{-- مودال الرفض --}}
+{{-- Ù…ÙˆØ¯Ø§Ù„ Ø§Ù„Ø±ÙØ¶ --}}
 <div class="modal fade" id="rejectModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content shadow-lg border-0">
@@ -230,7 +230,7 @@
     </div>
 </div>
 
-{{-- مودال الإيقاف --}}
+{{-- Ù…ÙˆØ¯Ø§Ù„ Ø§Ù„Ø¥ÙŠÙ‚Ø§Ù --}}
 <div class="modal fade" id="deactivateModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content shadow-lg border-0">
@@ -256,7 +256,7 @@
 @endsection
 
 @section('page-script')
-{{-- كود الخريطة يبقى كما هو --}}
+{{-- ÙƒÙˆØ¯ Ø§Ù„Ø®Ø±ÙŠØ·Ø© ÙŠØ¨Ù‚Ù‰ ÙƒÙ…Ø§ Ù‡Ùˆ --}}
 @if($service->latitude && $service->longitude)
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>

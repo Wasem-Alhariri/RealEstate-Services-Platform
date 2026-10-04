@@ -1,21 +1,19 @@
 @php
 use Illuminate\Support\Facades\Route;
 @endphp
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-
+<aside id="layout-menu" class="layout-menu">
     <div class="app-brand demo">
         <a href="{{url('/')}}" class="app-brand-link">
             <span class="app-brand-logo demo">@include('_partials.macros')</span>
-            <span class="app-brand-text demo menu-text fw-bold ms-2" style="font-size: 1.8rem; white-space: nowrap;">{{ __('sidebar.app_name') }}</span>
+            <span class="app-brand-text demo fw-bold ms-2">{{ __('sidebar.app_name') }}</span>
         </a>
 
-        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-            <i class="icon-base bx bx-chevron-left icon-sm d-flex align-items-center justify-content-center"></i>
+        <a href="javascript:void(0);" class="layout-menu-toggle d-xl-none">
+            <i class="bx bx-chevron-left"></i>
         </a>
     </div>
 
     <div class="menu-divider mt-0"></div>
-    <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
         @foreach ($menuData[0]->menu as $menu)

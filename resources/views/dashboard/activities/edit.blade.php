@@ -1,15 +1,15 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
-{{-- العنوان يظهر اسم النشاط باللغة الحالية للمتصفح --}}
+{{-- Ø§Ù„Ø¹Ù†ÙˆØ§Ù† ÙŠØ¸Ù‡Ø± Ø§Ø³Ù… Ø§Ù„Ù†Ø´Ø§Ø· Ø¨Ø§Ù„Ù„ØºØ© Ø§Ù„Ø­Ø§Ù„ÙŠØ© Ù„Ù„Ù…ØªØµÙØ­ --}}
 @section('title', __('activities.edit_title') . ' - ' . $activity->getTranslation('name', app()->getLocale()))
 
 @section('page-style')
 <style>
-    /* تنسيق الحقول لتدعم الـ RTL في العربي */
+    /* ØªÙ†Ø³ÙŠÙ‚ Ø§Ù„Ø­Ù‚ÙˆÙ„ Ù„ØªØ¯Ø¹Ù… Ø§Ù„Ù€ RTL ÙÙŠ Ø§Ù„Ø¹Ø±Ø¨ÙŠ */
     .input-group-merge[dir="rtl"] .form-control { border-left: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; padding-right: 15px; }
     .input-group-merge[dir="rtl"] .input-group-text { border-right: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; }
     
-    /* تنسيق معاينة الصورة */
+    /* ØªÙ†Ø³ÙŠÙ‚ Ù…Ø¹Ø§ÙŠÙ†Ø© Ø§Ù„ØµÙˆØ±Ø© */
     .current-image-preview { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd; padding: 5px; }
 </style>
 @endsection
@@ -20,7 +20,7 @@
         <div class="card mb-6">
             <div class="card-header d-flex align-items-center justify-content-between border-bottom">
                 <h5 class="mb-0">{{ __('activities.edit_title') }}</h5>
-                {{-- diffForHumans سيتم تعريبها تلقائياً لأننا ضبطنا الـ Locale في المشروع --}}
+                {{-- diffForHumans Ø³ÙŠØªÙ… ØªØ¹Ø±ÙŠØ¨Ù‡Ø§ ØªÙ„Ù‚Ø§Ø¦ÙŠØ§Ù‹ Ù„Ø£Ù†Ù†Ø§ Ø¶Ø¨Ø·Ù†Ø§ Ø§Ù„Ù€ Locale ÙÙŠ Ø§Ù„Ù…Ø´Ø±ÙˆØ¹ --}}
                 <small class="text-muted float-end">{{ __('activities.last_updated') }}: {{ $activity->updated_at->diffForHumans() }}</small>
             </div>
             

@@ -1,0 +1,78 @@
+/* Layout: Sidebar (Premium Modern UX - Soft Overrides only to maintain Sneat JS) */
+.app-brand {
+    padding: 1.5rem 1rem !important;
+}
+
+.app-brand-logo.demo {
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #312e81 100%);
+}
+
+.app-brand-logo.demo i {
+    color: #ffffff !important;
+}
+
+.app-brand-text {
+    background: linear-gradient(90deg, #0f172a, #334155);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.menu-vertical .menu-item .menu-link {
+    margin: 0.25rem 1rem;
+    border-radius: 0.5rem;
+    color: #64748b;
+    transition: all 0.2s ease;
+}
+
+.menu-vertical .menu-item:not(.active) > .menu-link:hover {
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+}
+
+.menu-vertical .menu-item:not(.active) > .menu-link:hover .menu-icon {
+    color: var(--color-primary);
+    transform: scale(1.1);
+}
+
+.menu-vertical .menu-item.active > .menu-link:not(.menu-toggle) {
+    background-color: var(--color-primary-light) !important;
+    color: var(--color-primary) !important;
+    font-weight: 600;
+}
+
+.menu-vertical .menu-item.active > .menu-link .menu-icon {
+    color: var(--color-primary) !important;
+}
+
+/* Active Indicator */
+.menu-vertical .menu-item.active > .menu-link::before {
+    content: '';
+    position: absolute;
+    left: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 4px;
+    background-color: var(--color-primary);
+    border-radius: 0 4px 4px 0;
+}
+
+[dir="rtl"] .menu-vertical .menu-item.active > .menu-link::before {
+    left: auto;
+    right: -1rem;
+    border-radius: 4px 0 0 4px;
+}
+
+/* Submenu active bar hide */
+.menu-vertical .menu-item .menu-sub .menu-item.active > .menu-link::before {
+    display: none;
+}
+
+.menu-vertical .menu-header-text {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #94a3b8 !important;
+}

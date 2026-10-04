@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('business.requests_title'))
 
@@ -78,7 +78,7 @@
     <div class="card-header border-bottom">
         <h5 class="card-title mb-3">{{ __('business.management_card') }}</h5>
         
-        {{-- تم إضافة id="filter-form" للفورم وكلاسات الجريد تم تحسينها لتوزيع المساحة بعد حذف الزر --}}
+        {{-- ØªÙ… Ø¥Ø¶Ø§ÙØ© id="filter-form" Ù„Ù„ÙÙˆØ±Ù… ÙˆÙƒÙ„Ø§Ø³Ø§Øª Ø§Ù„Ø¬Ø±ÙŠØ¯ ØªÙ… ØªØ­Ø³ÙŠÙ†Ù‡Ø§ Ù„ØªÙˆØ²ÙŠØ¹ Ø§Ù„Ù…Ø³Ø§Ø­Ø© Ø¨Ø¹Ø¯ Ø­Ø°Ù Ø§Ù„Ø²Ø± --}}
         <form action="{{ route('business-accounts.index') }}" method="GET" id="filter-form">
             <div class="row g-3">
                 <div class="col-12 col-md-4">
@@ -197,16 +197,16 @@
                 const $form = $('#filter-form');
                 let searchTimeout;
 
-                // 1. الفلترة الفورية عند تغيير القوائم المنسدلة (الحالة أو المدينة)
+                // 1. Ø§Ù„ÙÙ„ØªØ±Ø© Ø§Ù„ÙÙˆØ±ÙŠØ© Ø¹Ù†Ø¯ ØªØºÙŠÙŠØ± Ø§Ù„Ù‚ÙˆØ§Ø¦Ù… Ø§Ù„Ù…Ù†Ø³Ø¯Ù„Ø© (Ø§Ù„Ø­Ø§Ù„Ø© Ø£Ùˆ Ø§Ù„Ù…Ø¯ÙŠÙ†Ø©)
                 $(document).on('change', '.filter-select', function() {
                     $form.submit();
                 });
 
-                // 2. الفلترة الفورية الذكية عند الكتابة داخل حقل البحث (Debounce 500ms)
+                // 2. Ø§Ù„ÙÙ„ØªØ±Ø© Ø§Ù„ÙÙˆØ±ÙŠØ© Ø§Ù„Ø°ÙƒÙŠØ© Ø¹Ù†Ø¯ Ø§Ù„ÙƒØªØ§Ø¨Ø© Ø¯Ø§Ø®Ù„ Ø­Ù‚Ù„ Ø§Ù„Ø¨Ø­Ø« (Debounce 500ms)
                 $(document).on('input', '#search-input', function() {
                     clearTimeout(searchTimeout);
                     
-                    // ننتظر 500 ملي ثانية بعد توقف المستخدم عن الضغط على الأزرار قبل إرسال الفورم
+                    // Ù†Ù†ØªØ¸Ø± 500 Ù…Ù„ÙŠ Ø«Ø§Ù†ÙŠØ© Ø¨Ø¹Ø¯ ØªÙˆÙ‚Ù Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ø¹Ù† Ø§Ù„Ø¶ØºØ· Ø¹Ù„Ù‰ Ø§Ù„Ø£Ø²Ø±Ø§Ø± Ù‚Ø¨Ù„ Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„ÙÙˆØ±Ù…
                     searchTimeout = setTimeout(function() {
                         $form.submit();
                     }, 500); 

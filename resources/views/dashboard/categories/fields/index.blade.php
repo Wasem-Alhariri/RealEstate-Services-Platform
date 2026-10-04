@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('fields.manage_fields_title', ['category' => $category->getTranslation('name', 'en')]))
 

@@ -1,12 +1,12 @@
-@extends('layouts.contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('notifications.center_title'))
 
 <style>
-    /* تحسين شكل العناصر غير المقروءة مع مراعاة الاتجاه */
+    /* ØªØ­Ø³ÙŠÙ† Ø´ÙƒÙ„ Ø§Ù„Ø¹Ù†Ø§ØµØ± ØºÙŠØ± Ø§Ù„Ù…Ù‚Ø±ÙˆØ¡Ø© Ù…Ø¹ Ù…Ø±Ø§Ø¹Ø§Ø© Ø§Ù„Ø§ØªØ¬Ø§Ù‡ */
     .notification-card {
         transition: all 0.3s ease;
-        border-inline-start: 4px solid transparent; /* دعم تلقائي للـ RTL/LTR */
+        border-inline-start: 4px solid transparent; /* Ø¯Ø¹Ù… ØªÙ„Ù‚Ø§Ø¦ÙŠ Ù„Ù„Ù€ RTL/LTR */
         margin-bottom: 2px;
     }
     
@@ -90,7 +90,7 @@
                 @php
                     $data = is_array($notification->data) ? $notification->data : json_decode($notification->data, true);
                     
-                    // محرك الترجمة الديناميكي
+                    // Ù…Ø­Ø±Ùƒ Ø§Ù„ØªØ±Ø¬Ù…Ø© Ø§Ù„Ø¯ÙŠÙ†Ø§Ù…ÙŠÙƒÙŠ
                     $title = isset($data['title_key']) ? __($data['title_key']) : ($data['title'] ?? __('notifications.system_notice'));
                     $bodyArgs = $data['body_args'] ?? [];
                     $body = isset($data['body_key']) ? __($data['body_key'], $bodyArgs) : ($data['body'] ?? '');

@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('business.req_details'))
 
@@ -11,7 +11,7 @@
     .detail-value { font-weight: 500; color: #566a7f; }
     [dir="rtl"] .detail-value { text-align: right; }
 
-    /* التنسيق الموحد للأزرار القوية */
+    /* Ø§Ù„ØªÙ†Ø³ÙŠÙ‚ Ø§Ù„Ù…ÙˆØ­Ø¯ Ù„Ù„Ø£Ø²Ø±Ø§Ø± Ø§Ù„Ù‚ÙˆÙŠØ© */
     .btn-approve { background-color: #28c76f !important; border-color: #28c76f !important; color: #fff !important; }
     .btn-approve:hover { background-color: #24b364 !important; box-shadow: 0 8px 25px -8px #28c76f; }
     .btn-reject { background-color: #ea5455 !important; border-color: #ea5455 !important; color: #fff !important; }
@@ -28,7 +28,7 @@
     <h4 class="fw-bold py-3 mb-0">
         <span class="text-muted fw-light">{{ __('business.requests_title') }} /</span> {{ __('business.req_details') }}
     </h4>
-    {{-- الحالة بتصميم الـ Pill الموحد --}}
+    {{-- Ø§Ù„Ø­Ø§Ù„Ø© Ø¨ØªØµÙ…ÙŠÙ… Ø§Ù„Ù€ Pill Ø§Ù„Ù…ÙˆØ­Ø¯ --}}
     <span class="badge {{ $businessAccount->status->badge() }} fs-6 px-3 py-2 rounded-pill shadow-sm">
         {{ $businessAccount->status->label() }}
     </span>
@@ -36,7 +36,7 @@
 
 <div class="row">
     <div class="col-xl-7 col-lg-7 col-md-12 mb-4">
-        {{-- كرت المعلومات الأساسية --}}
+        {{-- ÙƒØ±Øª Ø§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø§Ù„Ø£Ø³Ø§Ø³ÙŠØ© --}}
         <div class="card mb-4 shadow-sm">
             <h5 class="card-header border-bottom bg-transparent fw-bold">{{ __('business.full_info') }}</h5>
             <div class="card-body mt-3">
@@ -88,7 +88,7 @@
             </div>
         </div>
 
-        {{-- كرت الأنشطة والتفاصيل --}}
+        {{-- ÙƒØ±Øª Ø§Ù„Ø£Ù†Ø´Ø·Ø© ÙˆØ§Ù„ØªÙØ§ØµÙŠÙ„ --}}
         <div class="card mb-4 shadow-sm">
             <h5 class="card-header border-bottom bg-transparent fw-bold">{{ __('business.desc_activities') }}</h5>
             <div class="card-body mt-3">
@@ -106,7 +106,7 @@
     </div>
 
     <div class="col-xl-5 col-lg-5 col-md-12">
-        {{-- كرت الخريطة --}}
+        {{-- ÙƒØ±Øª Ø§Ù„Ø®Ø±ÙŠØ·Ø© --}}
         <div class="card mb-4 shadow-sm">
             <h5 class="card-header border-bottom bg-transparent fw-bold">{{ __('business.location_map') }}</h5>
             <div class="card-body mt-3">
@@ -122,7 +122,7 @@
             </div>
         </div>
 
-        {{-- كرت المرفقات --}}
+        {{-- ÙƒØ±Øª Ø§Ù„Ù…Ø±ÙÙ‚Ø§Øª --}}
         <div class="card mb-4 shadow-sm">
             <h5 class="card-header border-bottom bg-transparent fw-bold">{{ __('business.attachments') }}</h5>
             <div class="card-body mt-3">
@@ -155,12 +155,12 @@
             </div>
         </div>
 
-           {{-- أزرار التحكم بالتصميم الاحترافي الجديد --}}
+           {{-- Ø£Ø²Ø±Ø§Ø± Ø§Ù„ØªØ­ÙƒÙ… Ø¨Ø§Ù„ØªØµÙ…ÙŠÙ… Ø§Ù„Ø§Ø­ØªØ±Ø§ÙÙŠ Ø§Ù„Ø¬Ø¯ÙŠØ¯ --}}
 @can('manage-business-accounts') 
     <div class="card bg-transparent shadow-none border-0 mt-4">
         <div class="card-body p-0">
             <div class="row g-3">
-                {{-- الحالة 1: الطلب معلق - يظهر قبول ورفض --}}
+                {{-- Ø§Ù„Ø­Ø§Ù„Ø© 1: Ø§Ù„Ø·Ù„Ø¨ Ù…Ø¹Ù„Ù‚ - ÙŠØ¸Ù‡Ø± Ù‚Ø¨ÙˆÙ„ ÙˆØ±ÙØ¶ --}}
                 @if($businessAccount->status->value === \App\Enum\StatusEnum::PENDING->value)
                     <div class="col-12 col-md-6">
                         <form action="{{ route('business-accounts.update-status', $businessAccount->id) }}" method="POST" onsubmit="return confirm('{{ __("business.approve_confirm_msg") }}')">
@@ -178,7 +178,7 @@
                         </button>
                     </div>
 
-                {{-- الحالة 2: الحساب مقبول - يظهر زر إيقاف يفتح مودال السبب --}}
+                {{-- Ø§Ù„Ø­Ø§Ù„Ø© 2: Ø§Ù„Ø­Ø³Ø§Ø¨ Ù…Ù‚Ø¨ÙˆÙ„ - ÙŠØ¸Ù‡Ø± Ø²Ø± Ø¥ÙŠÙ‚Ø§Ù ÙŠÙØªØ­ Ù…ÙˆØ¯Ø§Ù„ Ø§Ù„Ø³Ø¨Ø¨ --}}
                 @elseif($businessAccount->status->value === \App\Enum\StatusEnum::APPROVED->value)
                     <div class="col-12">
                         <button type="button" class="btn btn-inactive w-100 btn-lg rounded-3 py-3 fw-bold shadow-sm"
@@ -187,7 +187,7 @@
                         </button>
                     </div>
 
-                {{-- الحالة 3: الحساب موقوف - يظهر زر إعادة تفعيل مباشرة --}}
+                {{-- Ø§Ù„Ø­Ø§Ù„Ø© 3: Ø§Ù„Ø­Ø³Ø§Ø¨ Ù…ÙˆÙ‚ÙˆÙ - ÙŠØ¸Ù‡Ø± Ø²Ø± Ø¥Ø¹Ø§Ø¯Ø© ØªÙØ¹ÙŠÙ„ Ù…Ø¨Ø§Ø´Ø±Ø© --}}
                 @elseif($businessAccount->status->value === \App\Enum\StatusEnum::INACTIVE->value)
                     <div class="col-12">
                         <form action="{{ route('business-accounts.update-status', $businessAccount->id) }}" method="POST" onsubmit="return confirm('{{ __("business.activate_confirm_msg") }}')">
@@ -204,7 +204,7 @@
     </div>
 @endcan
 
-{{-- Modal الرفض --}}
+{{-- Modal Ø§Ù„Ø±ÙØ¶ --}}
 <div class="modal fade" id="rejectModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content shadow-lg border-0">
@@ -229,7 +229,7 @@
     </div>
 </div>
 
-{{-- Modal الإيقاف (جديد) --}}
+{{-- Modal Ø§Ù„Ø¥ÙŠÙ‚Ø§Ù (Ø¬Ø¯ÙŠØ¯) --}}
 <div class="modal fade" id="deactivateModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content shadow-lg border-0">

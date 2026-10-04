@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', isset($slider) ? __('sliders.edit') : __('sliders.add_new'))
 
@@ -16,7 +16,7 @@
           @if(isset($slider)) @method('PUT') @endif
 
           <div class="row">
-            {{-- رفع الصورة --}}
+            {{-- Ø±ÙØ¹ Ø§Ù„ØµÙˆØ±Ø© --}}
             <div class="col-md-12 mb-4">
               <label class="form-label fw-bold">{{ __('sliders.upload_image') }}</label>
               <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/*">
@@ -27,20 +27,20 @@
               @error('image') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            {{-- العنوان (عربي وإنكليزي) --}}
+            {{-- Ø§Ù„Ø¹Ù†ÙˆØ§Ù† (Ø¹Ø±Ø¨ÙŠ ÙˆØ¥Ù†ÙƒÙ„ÙŠØ²ÙŠ) --}}
             <div class="col-md-6 mb-3">
-              <label class="form-label">{{ __('sliders.title_ar') ?? 'العنوان (عربي)' }}</label>
+              <label class="form-label">{{ __('sliders.title_ar') ?? 'Ø§Ù„Ø¹Ù†ÙˆØ§Ù† (Ø¹Ø±Ø¨ÙŠ)' }}</label>
               <input type="text" name="title[ar]" class="form-control @error('title.ar') is-invalid @enderror" value="{{ old('title.ar', isset($slider) ? $slider->getTranslation('title', 'ar') : '') }}">
               @error('title.ar') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
             <div class="col-md-6 mb-3">
-              <label class="form-label">{{ __('sliders.title_en') ?? 'العنوان (إنكليزي)' }}</label>
+              <label class="form-label">{{ __('sliders.title_en') ?? 'Ø§Ù„Ø¹Ù†ÙˆØ§Ù† (Ø¥Ù†ÙƒÙ„ÙŠØ²ÙŠ)' }}</label>
               <input type="text" name="title[en]" class="form-control @error('title.en') is-invalid @enderror" value="{{ old('title.en', isset($slider) ? $slider->getTranslation('title', 'en') : '') }}">
               @error('title.en') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            {{-- حالة التفعيل (تم نقله هنا لترتيب الشكل) --}}
+            {{-- Ø­Ø§Ù„Ø© Ø§Ù„ØªÙØ¹ÙŠÙ„ (ØªÙ… Ù†Ù‚Ù„Ù‡ Ù‡Ù†Ø§ Ù„ØªØ±ØªÙŠØ¨ Ø§Ù„Ø´ÙƒÙ„) --}}
             <div class="col-12 mb-3">
               <label class="form-label">{{ __('sliders.is_active') }}</label>
               <div class="form-check form-switch mt-2">
@@ -49,20 +49,20 @@
               </div>
             </div>
 
-            {{-- الوصف (عربي وإنكليزي) --}}
+            {{-- Ø§Ù„ÙˆØµÙ (Ø¹Ø±Ø¨ÙŠ ÙˆØ¥Ù†ÙƒÙ„ÙŠØ²ÙŠ) --}}
             <div class="col-md-6 mb-3">
-              <label class="form-label">{{ __('sliders.description_ar') ?? 'الوصف (عربي)' }}</label>
+              <label class="form-label">{{ __('sliders.description_ar') ?? 'Ø§Ù„ÙˆØµÙ (Ø¹Ø±Ø¨ÙŠ)' }}</label>
               <textarea name="description[ar]" class="form-control @error('description.ar') is-invalid @enderror" rows="3">{{ old('description.ar', isset($slider) ? $slider->getTranslation('description', 'ar') : '') }}</textarea>
               @error('description.ar') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
             <div class="col-md-6 mb-3">
-              <label class="form-label">{{ __('sliders.description_en') ?? 'الوصف (إنكليزي)' }}</label>
+              <label class="form-label">{{ __('sliders.description_en') ?? 'Ø§Ù„ÙˆØµÙ (Ø¥Ù†ÙƒÙ„ÙŠØ²ÙŠ)' }}</label>
               <textarea name="description[en]" class="form-control @error('description.en') is-invalid @enderror" rows="3">{{ old('description.en', isset($slider) ? $slider->getTranslation('description', 'en') : '') }}</textarea>
               @error('description.en') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            {{-- تواريخ العرض --}}
+            {{-- ØªÙˆØ§Ø±ÙŠØ® Ø§Ù„Ø¹Ø±Ø¶ --}}
             <div class="col-md-6 mb-3">
               <label class="form-label">{{ __('sliders.start_date') }}</label>
               <input type="date" name="start_date" class="form-control @error('start_date') is-invalid @enderror" value="{{ isset($slider) ? $slider->start_date->format('Y-m-d') : old('start_date') }}">
@@ -74,7 +74,7 @@
               @error('end_date') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            {{-- الروابط الديناميكية (Morph) --}}
+            {{-- Ø§Ù„Ø±ÙˆØ§Ø¨Ø· Ø§Ù„Ø¯ÙŠÙ†Ø§Ù…ÙŠÙƒÙŠØ© (Morph) --}}
             <div class="col-12 mt-3 p-3 bg-lighter rounded-3">
               <h6 class="fw-bold mb-3"><i class="bx bx-link me-1"></i> {{ __('sliders.link_to') }}</h6>
               <div class="row">
@@ -90,7 +90,7 @@
                 <div id="target_id_container" class="col-md-6 mb-3 {{ (isset($slider) && $slider->sliderable_id) ? '' : 'd-none' }}">
                   <label class="form-label">{{ __('sliders.target_item') }}</label>
                   <select id="sliderable_id" name="sliderable_id" class="form-select">
-                    {{-- سيتم تعبئتها بواسطة JS --}}
+                    {{-- Ø³ÙŠØªÙ… ØªØ¹Ø¨Ø¦ØªÙ‡Ø§ Ø¨ÙˆØ§Ø³Ø·Ø© JS --}}
                   </select>
                 </div>
               </div>
@@ -114,7 +114,7 @@
   const sliderableIdContainer = document.getElementById('target_id_container');
   const sliderableId = document.getElementById('sliderable_id');
 
-  // البيانات من الـ Backend
+  // Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ù…Ù† Ø§Ù„Ù€ Backend
   const dataSources = {
     'App\\Models\\Category': @json($categories),
     'App\\Models\\Service': @json($services)
@@ -129,12 +129,12 @@
     if (type && dataSources[type]) {
         sliderableIdContainer.classList.remove('d-none');
         
-        // إضافة خيار فارغ أولاً
+        // Ø¥Ø¶Ø§ÙØ© Ø®ÙŠØ§Ø± ÙØ§Ø±Øº Ø£ÙˆÙ„Ø§Ù‹
         const defaultOption = new Option("{{ __('sliders.select_item') }}", "");
         sliderableId.add(defaultOption);
 
         dataSources[type].forEach(item => {
-            // هنا نستخدم display_name الذي جهزناه في الـ Controller
+            // Ù‡Ù†Ø§ Ù†Ø³ØªØ®Ø¯Ù… display_name Ø§Ù„Ø°ÙŠ Ø¬Ù‡Ø²Ù†Ø§Ù‡ ÙÙŠ Ø§Ù„Ù€ Controller
             const option = new Option(item.display_name, item.id);
             
             if (item.id == currentId) option.selected = true;
@@ -145,7 +145,7 @@
     }
 });
 
-  // تشغيل الـ Script مرة عند التحميل في حالة الـ Edit
+  // ØªØ´ØºÙŠÙ„ Ø§Ù„Ù€ Script Ù…Ø±Ø© Ø¹Ù†Ø¯ Ø§Ù„ØªØ­Ù…ÙŠÙ„ ÙÙŠ Ø­Ø§Ù„Ø© Ø§Ù„Ù€ Edit
   if (sliderableType.value) {
     sliderableType.dispatchEvent(new Event('change'));
   }

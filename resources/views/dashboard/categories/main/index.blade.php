@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('categories.main_title'))
 
@@ -59,14 +59,14 @@
         
         <form action="{{ route('categories.main.index') }}" method="GET" id="categories-filter-form">
             <div class="row g-3">
-                {{-- حقل البحث يأخذ ثلثي مساحة السطر بالكامل --}}
+                {{-- Ø­Ù‚Ù„ Ø§Ù„Ø¨Ø­Ø« ÙŠØ£Ø®Ø° Ø«Ù„Ø«ÙŠ Ù…Ø³Ø§Ø­Ø© Ø§Ù„Ø³Ø·Ø± Ø¨Ø§Ù„ÙƒØ§Ù…Ù„ --}}
                 <div class="col-12 col-md-8">
                     <div class="input-group input-group-merge">
                         <span class="input-group-text text-muted"><i class="bx bx-search"></i></span>
                         <input type="text" name="search" id="search-category-input" value="{{ request('search') }}" class="form-control" placeholder="{{ __('categories.search_placeholder') }}" autocomplete="off">
                     </div>
                 </div>
-                {{-- قائمة الحالة المنسدلة تأخذ الثلث المتبقي لتغطية كامل مساحة السطر --}}
+                {{-- Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ø­Ø§Ù„Ø© Ø§Ù„Ù…Ù†Ø³Ø¯Ù„Ø© ØªØ£Ø®Ø° Ø§Ù„Ø«Ù„Ø« Ø§Ù„Ù…ØªØ¨Ù‚ÙŠ Ù„ØªØºØ·ÙŠØ© ÙƒØ§Ù…Ù„ Ù…Ø³Ø§Ø­Ø© Ø§Ù„Ø³Ø·Ø± --}}
                 <div class="col-12 col-md-4">
                     <select name="status" class="form-select immediate-category-select">
                         <option value="">{{ __('categories.all_statuses') }}</option>
@@ -206,12 +206,12 @@
                 const $form = $('#categories-filter-form');
                 let searchCategoriesTimeout;
 
-                // 1. الفلترة الفورية بمجرد تغيير خيار قائمة الحالة
+                // 1. Ø§Ù„ÙÙ„ØªØ±Ø© Ø§Ù„ÙÙˆØ±ÙŠØ© Ø¨Ù…Ø¬Ø±Ø¯ ØªØºÙŠÙŠØ± Ø®ÙŠØ§Ø± Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ø­Ø§Ù„Ø©
                 $(document).on('change', '.immediate-category-select', function() {
                     $form.submit();
                 });
 
-                // 2. البحث التلقائي الفوري أثناء الكتابة بخاصية الـ Debounce (500ms) لمنع إرهاق الخادم
+                // 2. Ø§Ù„Ø¨Ø­Ø« Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ Ø§Ù„ÙÙˆØ±ÙŠ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„ÙƒØªØ§Ø¨Ø© Ø¨Ø®Ø§ØµÙŠØ© Ø§Ù„Ù€ Debounce (500ms) Ù„Ù…Ù†Ø¹ Ø¥Ø±Ù‡Ø§Ù‚ Ø§Ù„Ø®Ø§Ø¯Ù…
                 $(document).on('input', '#search-category-input', function() {
                     clearTimeout(searchCategoriesTimeout);
                     
@@ -220,7 +220,7 @@
                     }, 500);
                 });
 
-                // 3. تأكيد الحذف
+                // 3. ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø­Ø°Ù
                 $(document).on('submit', '.delete-category-form', function(e) {
                     if(!confirm("{{ __('categories.delete_confirm') }}")) {
                         e.preventDefault();

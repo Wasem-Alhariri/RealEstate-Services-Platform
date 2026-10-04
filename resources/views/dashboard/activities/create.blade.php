@@ -1,10 +1,10 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('activities.add_title'))
 
 @section('page-style')
 <style>
-    /* تحسين توافقية المدخلات مع الاتجاهات */
+    /* ØªØ­Ø³ÙŠÙ† ØªÙˆØ§ÙÙ‚ÙŠØ© Ø§Ù„Ù…Ø¯Ø®Ù„Ø§Øª Ù…Ø¹ Ø§Ù„Ø§ØªØ¬Ø§Ù‡Ø§Øª */
     .input-group-merge[dir="rtl"] .form-control { border-left: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; padding-right: 15px; }
     .input-group-merge[dir="rtl"] .input-group-text { border-right: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; }
 </style>
@@ -21,7 +21,7 @@
                 <form action="{{ route('activities.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
-                    {{-- حقل الاسم بالإنكليزية --}}
+                    {{-- Ø­Ù‚Ù„ Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¥Ù†ÙƒÙ„ÙŠØ²ÙŠØ© --}}
                     <div class="row mb-6">
                         <label class="col-sm-2 col-form-label" for="name_en">{{ __('activities.label_name_en') }}</label>
                         <div class="col-sm-10">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
 
-                    {{-- حقل الاسم بالعربية --}}
+                    {{-- Ø­Ù‚Ù„ Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© --}}
                     <div class="row mb-6">
                         <label class="col-sm-2 col-form-label" for="name_ar">{{ __('activities.label_name_ar') }}</label>
                         <div class="col-sm-10">
@@ -48,7 +48,7 @@
                         </div>
                     </div>
 
-                    {{-- رفع الصورة --}}
+                    {{-- Ø±ÙØ¹ Ø§Ù„ØµÙˆØ±Ø© --}}
                     <div class="row mb-6">
                         <label class="col-sm-2 col-form-label" for="activity_image">{{ __('activities.label_image') }}</label>
                         <div class="col-sm-10">
@@ -60,7 +60,7 @@
                         </div>
                     </div>
 
-                    {{-- حالة التفعيل --}}
+                    {{-- Ø­Ø§Ù„Ø© Ø§Ù„ØªÙØ¹ÙŠÙ„ --}}
                     <div class="row mb-6">
                         <label class="col-sm-2 col-form-label" for="is_active">{{ __('activities.label_status') }}</label>
                         <div class="col-sm-10 d-flex align-items-center">

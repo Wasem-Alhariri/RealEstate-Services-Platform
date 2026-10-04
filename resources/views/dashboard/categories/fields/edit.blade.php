@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+﻿@extends('layouts.app')
 
 @section('title', __('fields.edit_field', ['label' => $dynamicField->getTranslation('label', 'en')]))
 
@@ -118,7 +118,7 @@
         const type = typeSelect.value;
         const input = document.getElementById('options_input').value;
         
-        // تنظيف أي Inputs مخفية قديمة قبل الإرسال الجديد
+        // ØªÙ†Ø¸ÙŠÙ Ø£ÙŠ Inputs Ù…Ø®ÙÙŠØ© Ù‚Ø¯ÙŠÙ…Ø© Ù‚Ø¨Ù„ Ø§Ù„Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø¬Ø¯ÙŠØ¯
         this.querySelectorAll('input[name="options[]"]').forEach(el => el.remove());
 
         if (type === 'select' && input.trim() !== '') {
