@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', __('roles.create_role_title')); ?>
 
-@section('title', __('roles.create_role_title'))
-
-@section('page-style')
+<?php $__env->startSection('page-style'); ?>
 <style>
     .premium-form-card {
         background: #ffffff;
@@ -205,36 +203,51 @@
         color: #1e293b;
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <!-- Header -->
 <div class="mb-4">
-    <a href="{{ route('roles.index') }}" class="text-muted text-decoration-none d-inline-flex align-items-center mb-2 fw-medium hover-primary">
+    <a href="<?php echo e(route('roles.index')); ?>" class="text-muted text-decoration-none d-inline-flex align-items-center mb-2 fw-medium hover-primary">
         <i class="bx bx-arrow-back me-1"></i> Back to Roles
     </a>
-    <h3 class="fw-bolder text-slate-800 mb-1">{{ __('roles.create_role_title') ?? 'Create New Role' }}</h3>
-    <p class="text-muted mb-0">{{ __('roles.step_define_perms') ?? 'Define role details and assign access permissions.' }}</p>
+    <h3 class="fw-bolder text-slate-800 mb-1"><?php echo e(__('roles.create_role_title') ?? 'Create New Role'); ?></h3>
+    <p class="text-muted mb-0"><?php echo e(__('roles.step_define_perms') ?? 'Define role details and assign access permissions.'); ?></p>
 </div>
 
 <div class="premium-form-card">
-    <form action="{{ route('roles.store') }}" method="POST">
-        @csrf
+    <form action="<?php echo e(route('roles.store')); ?>" method="POST">
+        <?php echo csrf_field(); ?>
         
         <!-- Role Info Section -->
         <div class="section-title">
-            <i class="bx bx-id-card"></i> {{ __('roles.create_security_title') ?? 'Role Information' }}
+            <i class="bx bx-id-card"></i> <?php echo e(__('roles.create_security_title') ?? 'Role Information'); ?>
+
         </div>
         <div class="row g-4 mb-5">
             <div class="col-md-12">
-                <label class="form-label" for="role-name">{{ __('roles.role_name_label') ?? 'Role Name' }} <span class="text-danger">*</span></label>
+                <label class="form-label" for="role-name"><?php echo e(__('roles.role_name_label') ?? 'Role Name'); ?> <span class="text-danger">*</span></label>
                 <div class="input-wrapper">
-                    <input type="text" id="role-name" name="name" class="modern-input @error('name') border-danger @enderror" placeholder="{{ __('roles.role_name_placeholder') ?? 'e.g. Content Manager' }}" value="{{ old('name') }}" required>
+                    <input type="text" id="role-name" name="name" class="modern-input <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-danger <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="<?php echo e(__('roles.role_name_placeholder') ?? 'e.g. Content Manager'); ?>" value="<?php echo e(old('name')); ?>" required>
                     <i class="bx bx-shield-quarter input-icon"></i>
                 </div>
-                <div class="text-muted small mt-2"><i class="bx bx-info-circle me-1"></i>{{ __('roles.role_name_help') ?? 'Role names should be unique and descriptive.' }}</div>
-                @error('name') <span class="text-danger small mt-1 d-block">{{ $message }}</span> @enderror
+                <div class="text-muted small mt-2"><i class="bx bx-info-circle me-1"></i><?php echo e(__('roles.role_name_help') ?? 'Role names should be unique and descriptive.'); ?></div>
+                <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-danger small mt-1 d-block"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
         </div>
 
@@ -243,48 +256,58 @@
         <!-- Permissions Section -->
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div class="section-title mb-0">
-                <i class="bx bx-check-shield"></i> {{ __('roles.assign_permissions') ?? 'Assign Permissions' }}
+                <i class="bx bx-check-shield"></i> <?php echo e(__('roles.assign_permissions') ?? 'Assign Permissions'); ?>
+
             </div>
             <button type="button" class="select-all-btn" id="selectAllBtn">
                 Select All
             </button>
         </div>
         
-        <p class="text-muted small mb-4">{{ __('roles.select_all_notice') ?? 'Choose the specific permissions this role will have.' }}</p>
+        <p class="text-muted small mb-4"><?php echo e(__('roles.select_all_notice') ?? 'Choose the specific permissions this role will have.'); ?></p>
         
         <div class="permissions-grid-wrapper">
             <div class="row g-3">
-                @foreach($permissions as $permission)
+                <?php $__currentLoopData = $permissions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-md-4 col-sm-6">
                         <label class="permission-card">
-                            <input type="checkbox" name="permissions[]" value="{{ $permission->name }}" class="perm-checkbox" {{ (collect(old('permissions'))->contains($permission->name)) ? 'checked':'' }}>
+                            <input type="checkbox" name="permissions[]" value="<?php echo e($permission->name); ?>" class="perm-checkbox" <?php echo e((collect(old('permissions'))->contains($permission->name)) ? 'checked':''); ?>>
                             <div class="custom-check">
                                 <i class="bx bx-check"></i>
                             </div>
                             <div>
-                                <span class="fw-bold d-block text-slate-700 small">{{ ucwords(str_replace('-', ' ', $permission->name)) }}</span>
+                                <span class="fw-bold d-block text-slate-700 small"><?php echo e(ucwords(str_replace('-', ' ', $permission->name))); ?></span>
                             </div>
                         </label>
                     </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
-        @error('permissions') <div class="text-danger small mt-2">{{ $message }}</div> @enderror
+        <?php $__errorArgs = ['permissions'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <div class="text-danger small mt-2"><?php echo e($message); ?></div> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
 
         <div class="d-flex justify-content-end gap-3 mt-5 pt-4 border-top border-light">
-            <a href="{{ route('roles.index') }}" class="btn-cancel text-decoration-none">
-                {{ __('roles.cancel') ?? 'Cancel' }}
+            <a href="<?php echo e(route('roles.index')); ?>" class="btn-cancel text-decoration-none">
+                <?php echo e(__('roles.cancel') ?? 'Cancel'); ?>
+
             </a>
             <button type="submit" class="btn-save">
-                <i class="bx bx-check-shield me-1"></i> {{ __('roles.save_role_btn') ?? 'Create Role' }}
+                <i class="bx bx-check-shield me-1"></i> <?php echo e(__('roles.save_role_btn') ?? 'Create Role'); ?>
+
             </button>
         </div>
     </form>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('page-script')
+<?php $__env->startSection('page-script'); ?>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const selectAllBtn = document.getElementById('selectAllBtn');
@@ -305,4 +328,6 @@
         }
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\RealEstate-Services-Platform\resources\views/dashboard/roles/create.blade.php ENDPATH**/ ?>

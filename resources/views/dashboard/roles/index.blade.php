@@ -1,225 +1,408 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', __('roles.management_title'))
 
+@section('page-style')
+<style>
+    /* Premium Stats Cards */
+    .stat-card-premium {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.02);
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        transition: transform 0.3s ease;
+    }
+    .stat-card-premium:hover {
+        transform: translateY(-5px);
+    }
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+    }
+    .stat-info h3 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.5rem;
+        color: #1e293b;
+    }
+    .stat-info p {
+        margin: 0;
+        color: #64748b;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    /* Premium Table Card */
+    .premium-table-card {
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.02);
+        padding: 2rem;
+        margin-top: 2rem;
+    }
+
+    /* Modern Search Input */
+    .modern-search {
+        position: relative;
+        max-width: 400px;
+    }
+    .modern-search input {
+        width: 100%;
+        padding: 1rem 1rem 1rem 3rem;
+        border-radius: 16px;
+        border: 2px solid #f1f5f9;
+        background: #f8fafc;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+    .modern-search input:focus {
+        background: #ffffff;
+        border-color: #696cff;
+        box-shadow: 0 0 0 4px rgba(105, 108, 255, 0.1);
+        outline: none;
+    }
+    .modern-search i {
+        position: absolute;
+        top: 50%;
+        left: 1.2rem;
+        transform: translateY(-50%);
+        color: #94a3b8;
+        font-size: 1.2rem;
+    }
+    html[dir="rtl"] .modern-search input {
+        padding: 1rem 3rem 1rem 1rem;
+    }
+    html[dir="rtl"] .modern-search i {
+        left: auto;
+        right: 1.2rem;
+    }
+
+    /* Table Styles */
+    .premium-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+    }
+    .premium-table th {
+        color: #64748b;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+        padding: 0 1.5rem 0.5rem;
+        border-bottom: 2px solid #f1f5f9;
+    }
+    .premium-table td {
+        padding: 1.25rem 1.5rem;
+        background: #ffffff;
+        border-top: 1px solid #f8fafc;
+        border-bottom: 1px solid #f8fafc;
+        vertical-align: middle;
+    }
+    .premium-table tr td:first-child {
+        border-left: 1px solid #f8fafc;
+        border-top-left-radius: 16px;
+        border-bottom-left-radius: 16px;
+    }
+    .premium-table tr td:last-child {
+        border-right: 1px solid #f8fafc;
+        border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
+    }
+    .premium-table tbody tr {
+        box-shadow: 0 4px 6px -4px rgba(0,0,0,0.02);
+        transition: all 0.2s ease;
+    }
+    .premium-table tbody tr:hover {
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+        transform: translateY(-2px);
+    }
+
+    /* Avatar and Badges */
+    .role-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: rgba(105, 108, 255, 0.1);
+        color: #696cff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+    .perm-badge {
+        padding: 0.4rem 1rem;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.75rem;
+        background: #f1f5f9;
+        color: #475569;
+        display: inline-block;
+        margin-right: 0.25rem;
+        margin-bottom: 0.25rem;
+        text-transform: capitalize;
+    }
+    
+    /* Action Buttons */
+    .btn-action {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: #f1f5f9;
+        color: #64748b;
+        transition: all 0.2s;
+    }
+    .btn-action:hover {
+        background: #696cff;
+        color: white;
+    }
+    .btn-action.btn-delete:hover {
+        background: #ff3e1d;
+        color: white;
+    }
+
+    /* Primary Add Button */
+    .btn-premium-add {
+        background: #696cff;
+        color: white;
+        border: none;
+        border-radius: 14px;
+        padding: 0.8rem 1.5rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 4px 10px rgba(105, 108, 255, 0.2);
+        transition: all 0.3s;
+    }
+    .btn-premium-add:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(105, 108, 255, 0.3);
+        color: white;
+    }
+</style>
+@endsection
+
 @section('content')
 
-{{-- Ø¨Ø·Ø§Ù‚Ø§Øª Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„Ù…Ù„ÙˆÙ†Ø© --}}
-<div class="row g-4 mb-4">
+<!-- Header & Title -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bolder text-slate-800 mb-1">{{ __('roles.management_title') ?? 'Roles Management' }}</h3>
+        <p class="text-muted mb-0">Manage roles and their associated permissions securely.</p>
+    </div>
+    @if(auth()->user()->can('create-roles'))
+        <a href="{{ route('roles.create') }}" class="btn-premium-add">
+            <i class="bx bx-plus fs-5"></i> {{ __('roles.add_new') ?? 'Add New Role' }}
+        </a>
+    @endif
+</div>
+
+<!-- Stats Widgets -->
+<div class="row g-4 mb-2">
     <div class="col-sm-6 col-xl-4">
-        <div class="card shadow-none border-0 rounded-4" style="background-color: #dbdee0">
-            <div class="card-body p-3 text-nowrap">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div class="content-left">
-                        <h6 class="mb-1 fw-bold ">{{ __('roles.total_roles') }}</h6>
-                        <h4 class="mb-0 fw-black">{{ $stats['total_roles'] }}</h4>
-                    </div>
-                    <span class="badge bg-primary rounded-circle p-2">
-                        <i class="bx bx-key fs-3"></i>
-                    </span>
-                </div>
+        <div class="stat-card-premium">
+            <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                <i class="bx bx-key"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ $stats['total_roles'] ?? 0 }}</h3>
+                <p>{{ __('roles.total_roles') ?? 'Total Roles' }}</p>
             </div>
         </div>
     </div>
     <div class="col-sm-6 col-xl-4">
-        <div class="card shadow-none border-0 rounded-4" style="background-color: #dbdee0">
-            <div class="card-body p-3 text-nowrap">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div class="content-left">
-                        <h6 class="mb-1 fw-bold">{{ __('roles.system_permissions') }}</h6>
-                        <h4 class="mb-0 fw-black">{{ $stats['total_perms'] }}</h4>
-                    </div>
-                    <span class="badge bg-warning rounded-circle p-2">
-                        <i class="bx bx-lock-alt fs-3"></i>
-                    </span>
-                </div>
+        <div class="stat-card-premium">
+            <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+                <i class="bx bx-lock-alt"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ $stats['total_perms'] ?? 0 }}</h3>
+                <p>{{ __('roles.system_permissions') ?? 'Total Permissions' }}</p>
             </div>
         </div>
     </div>
     <div class="col-sm-6 col-xl-4">
-        <div class="card shadow-none border-0 rounded-4" style="background-color: #dbdee0">
-            <div class="card-body p-3 text-nowrap">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div class="content-left">
-                        <h6 class="mb-1 fw-bold">{{ __('roles.authorized_admins') }}</h6>
-                        <h4 class="mb-0 fw-black">{{ $stats['assigned_admins'] }}</h4>
-                    </div>
-                    <span class="badge bg-info rounded-circle p-2">
-                        <i class="bx bx-user-check fs-3"></i>
-                    </span>
-                </div>
+        <div class="stat-card-premium">
+            <div class="stat-icon bg-success bg-opacity-10 text-success">
+                <i class="bx bx-user-check"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ $stats['total_users'] ?? $roles->sum('users_count') ?? 0 }}</h3>
+                <p>{{ __('roles.users_count') ?? 'Total Assigned Users' }}</p>
             </div>
         </div>
     </div>
 </div>
 
-{{-- Ø¬Ø¯ÙˆÙ„ Ø¹Ø±Ø¶ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª ÙˆØ¬Ø¯ÙˆÙ„ Ø§Ù„Ø¥Ø¯Ø§Ø±Ø© --}}
-<div class="card rounded-4 overflow-hidden">
-    <div class="card-header border-bottom">
-        {{-- Ø§Ù„Ø³Ø·Ø± Ø§Ù„Ø¹Ù„ÙˆÙŠ: Ø§Ù„Ø¹Ù†ÙˆØ§Ù† ÙˆØ²Ø± Ø§Ù„Ø¥Ø¶Ø§ÙØ© ÙÙŠ Ø§Ù„Ø²Ø§ÙˆÙŠØ© Ø§Ù„Ù…Ù‚Ø§Ø¨Ù„Ø© --}}
-        <div class="d-flex align-items-center justify-content-between mb-3">
-            <h5 class="card-title mb-0">{{ __('roles.management_title') }}</h5>
-            @can('create-roles')
-                <a href="{{ route('roles.create') }}" class="btn btn-primary text-nowrap rounded-pill">
-                    <i class="bx bx-plus-circle me-1"></i> {{ __('roles.add_new') }}
-                </a>
-            @endcan
-        </div>
-        
-        {{-- Ø§Ù„Ø³Ø·Ø± Ø§Ù„Ø³ÙÙ„ÙŠ: Ø­Ù‚Ù„ Ø§Ù„Ø¨Ø­Ø« Ù…Ù…ØªØ¯ Ø¨Ø§Ù„ÙƒØ§Ù…Ù„ Ø¹Ù„Ù‰ Ø³Ø·Ø± Ù…Ø³ØªÙ‚Ù„ --}}
+<!-- Table Card -->
+<div class="premium-table-card">
+    
+    <!-- Filters / Search -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="fw-bold mb-0 text-slate-800">System Roles</h5>
         <form action="{{ route('roles.index') }}" method="GET" id="roles-filter-form">
-            <div class="row">
-                <div class="col-12">
-                    <div class="input-group input-group-merge">
-                        <span class="input-group-text text-muted"><i class="bx bx-search"></i></span>
-                        <input type="text" name="search" id="search-role-input" value="{{ request('search') }}" class="form-control" placeholder="{{ __('roles.search_placeholder') }}" autocomplete="off">
-                    </div>
-                </div>
+            <div class="modern-search">
+                <i class="bx bx-search"></i>
+                <input type="text" name="search" id="search-role-input" placeholder="{{ __('roles.search_placeholder') ?? 'Search roles...' }}" value="{{ request('search') }}">
             </div>
         </form>
     </div>
 
+    <!-- Data Table -->
     <div class="table-responsive text-nowrap">
-        <table class="table table-hover mb-0">
-            <thead class="table-light text-uppercase">
+        <table class="premium-table">
+            <thead>
                 <tr>
-                    <th style="width: 25%">{{ __('roles.role_name') }}</th>
-                    <th style="width: 40%">{{ __('roles.permissions') }}</th>
-                    <th style="width: 15%">{{ __('roles.users_count') }}</th>
-                    <th style="width: 10%">{{ __('roles.created_at') }}</th>
+                    <th style="width: 25%">{{ __('roles.role_name') ?? 'Role Name' }}</th>
+                    <th style="width: 40%">{{ __('roles.permissions') ?? 'Permissions' }}</th>
+                    <th style="width: 15%">{{ __('roles.users_count') ?? 'Users' }}</th>
+                    <th style="width: 10%">{{ __('roles.created_at') ?? 'Created Date' }}</th>
                     @if(auth()->user()->can('edit-roles') || auth()->user()->can('delete-roles'))
-                        <th style="width: 10%" class="text-center">{{ __('roles.actions') }}</th>
+                        <th style="width: 10%" class="text-end">{{ __('roles.actions') ?? 'Actions' }}</th>
                     @endif
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
                 @forelse($roles as $role)
-                <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <div class="avatar avatar-xs me-2">
-                                <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-shield"></i></span>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="role-avatar shadow-sm me-3">
+                                    <i class="bx bx-shield-quarter"></i>
+                                </div>
+                                <div>
+                                    <span class="fw-bold d-block text-slate-800 fs-6">{{ strtoupper($role->name) }}</span>
+                                    <small class="text-muted">Role ID: #{{ $role->id }}</small>
+                                </div>
                             </div>
-                            <span class="fw-bold text-heading">{{ strtoupper($role->name) }}</span>
-                        </div>
-                    </td>
-
-                    <td>
-                        @php $mainPerms = $role->permissions->take(3); @endphp
-                        @forelse($mainPerms as $perm)
-                            <span class="badge bg-label-secondary rounded-pill me-1" style="text-transform: none;">
-                                {{ str_replace('-', ' ', $perm->name) }}
-                            </span>
-                        @empty
-                            <small class="text-muted small">{{ __('roles.no_perms') }}</small>
-                        @endforelse
-
-                        @if($role->permissions->count() > 3)
-                            <small class="text-muted cursor-pointer ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $role->permissions->skip(3)->pluck('name')->implode(', ') }}">
-                                +{{ $role->permissions->count() - 3 }} {{ __('roles.more') }}
-                            </small>
-                        @endif
-                    </td>
-
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <div class="user-list d-flex align-items-center">
-                                <i class="bx bx-group me-2 text-muted"></i>
-                                <span class="badge bg-label-info rounded-pill">{{ $role->users_count }} {{ __('roles.users') }}</span>
+                        </td>
+                        <td style="white-space: normal;">
+                            @php $mainPerms = $role->permissions->take(4); @endphp
+                            @forelse($mainPerms as $perm)
+                                <span class="perm-badge">{{ str_replace('-', ' ', $perm->name) }}</span>
+                            @empty
+                                <span class="text-muted small fst-italic">{{ __('roles.no_perms') ?? 'No permissions assigned' }}</span>
+                            @endforelse
+                            @if($role->permissions->count() > 4)
+                                <span class="perm-badge bg-primary bg-opacity-10 text-primary cursor-pointer" title="{{ $role->permissions->skip(4)->pluck('name')->implode(', ') }}">
+                                    +{{ $role->permissions->count() - 4 }} {{ __('roles.more') ?? 'More' }}
+                                </span>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center text-slate-600">
+                                <i class="bx bx-group me-2 text-primary"></i>
+                                <span class="fw-bold text-slate-800">{{ $role->users_count ?? 0 }}</span>
                             </div>
-                        </div>
-                    </td>
-
-                    <td>
-                        <span class="text-muted small">{{ $role->created_at->translatedFormat('M d, Y') }}</span>
-                    </td>
-                    @if(auth()->user()->can('edit-roles') || auth()->user()->can('delete-roles'))
-                        <td class="text-center">
-                            <div class="dropdown">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                    <i class="icon-base bx bx-dots-vertical-rounded fs-4"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end">
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center text-slate-600">
+                                <i class="bx bx-calendar me-2 text-slate-400"></i>
+                                <span class="small fw-medium">{{ $role->created_at->translatedFormat('M d, Y') }}</span>
+                            </div>
+                        </td>
+                        @if(auth()->user()->can('edit-roles') || auth()->user()->can('delete-roles'))
+                            <td class="text-end">
+                                <div class="d-flex justify-content-end gap-2">
                                     @can('edit-roles')
-                                        <a class="dropdown-item" href="{{ route('roles.edit', $role->id) }}">
-                                            <i class="icon-base bx bx-edit-alt me-1"></i> {{ __('roles.edit') }}
+                                        <a href="{{ route('roles.edit', $role->id) }}" class="btn-action" title="Edit Role">
+                                            <i class="bx bx-edit-alt"></i>
                                         </a>
                                     @endcan
                                     @can('delete-roles')
-                                        <div class="dropdown-divider"></div>
-                                        <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="delete-role-form">
+                                        <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="delete-role-form d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="dropdown-item text-danger">
-                                                <i class="icon-base bx bx-trash me-1"></i> {{ __('roles.delete') }}
+                                            <button type="submit" class="btn-action btn-delete" title="Delete Role">
+                                                <i class="bx bx-trash"></i>
                                             </button>
                                         </form>
                                     @endcan
                                 </div>
-                            </div>
-                        </td>
-                    @endif
-                </tr>
+                            </td>
+                        @endif
+                    </tr>
                 @empty
-                <tr>
-                    <td colspan="5" class="text-center py-5">
-                        <div class="text-muted">
-                            <i class="bx bx-search mb-2" style="font-size: 3rem;"></i>
-                            <p class="mb-0">{{ __('roles.no_results') }} {{ request('search') ? __('roles.matching_search') : __('roles.in_database') }}</p>
-                        </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="5" class="text-center py-5">
+                            <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-3" style="width: 80px; height: 80px;">
+                                <i class="bx bx-search text-muted" style="font-size: 2.5rem;"></i>
+                            </div>
+                            <h5 class="fw-bold text-slate-700">{{ __('roles.no_results') ?? 'No Roles Found' }}</h5>
+                            <p class="text-muted mb-0">{{ request('search') ? __('roles.matching_search') ?? 'Try adjusting your search query.' : __('roles.in_database') ?? 'Get started by creating a new role.' }}</p>
+                        </td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
-    @if($roles->hasPages() || $roles->total() > 0)
-        <div class="card-footer border-top d-flex flex-column flex-md-row align-items-center justify-content-between py-3">
-            <div class="text-muted small mb-3 mb-md-0">
-                {{ __('roles.showing') }} <strong>{{ $roles->firstItem() ?? 0 }}</strong> {{ __('roles.to') }} <strong>{{ $roles->lastItem() ?? 0 }}</strong> {{ __('roles.of') }} <strong>{{ $roles->total() }}</strong> {{ __('roles.results') }}
-            </div>
-
-            <div class="pagination-wrapper">
-                {{ $roles->appends(request()->query())->links('pagination::bootstrap-5') }}
-            </div>
+    <!-- Pagination -->
+    @if($roles->hasPages())
+        <div class="d-flex justify-content-center mt-4 pt-3 border-top border-light">
+            {{ $roles->appends(request()->query())->links('pagination::bootstrap-5') }}
         </div>
     @endif
+
 </div>
+
 @endsection
 
 @section('page-script')
 <script>
-    window.onload = function() {
-        if (window.jQuery) {
-            $(function() {
-                const $form = $('#roles-filter-form');
-                let searchRolesTimeout;
-
-                // 1. Ø§Ù„Ø¨Ø­Ø« Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ Ø§Ù„ÙÙˆØ±ÙŠ Ø§Ù„Ù…ÙˆØ²ÙˆÙ† (Debounce 500ms)
-                $(document).on('input', '#search-role-input', function() {
-                    clearTimeout(searchRolesTimeout);
-                    
-                    searchRolesTimeout = setTimeout(function() {
-                        $form.submit();
-                    }, 500);
-                });
-
-                // 2. Ù…Ù†Ø¹ Ø§Ù„Ù€ Submit Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ ØºÙŠØ± Ø§Ù„Ù…Ù‚ØµÙˆØ¯ Ø¹Ù†Ø¯ Ø¶ØºØ· Ù…ÙØªØ§Ø­ Enter Ø¯Ø§Ø®Ù„ Ø­Ù‚Ù„ Ø§Ù„Ø¨Ø­Ø«
-                $form.on('submit', function(e) {
-                    if (e.originalEvent && e.originalEvent.submitter === undefined) {
-                        e.preventDefault();
-                    }
-                });
-
-                // 3. ØªØ£ÙƒÙŠØ¯ Ø¹Ù…Ù„ÙŠØ© Ø§Ù„Ø­Ø°Ù
-                $(document).on('submit', '.delete-role-form', function(e) {
-                    if(!confirm("{{ __('roles.delete_confirm') }}")) {
-                        e.preventDefault();
-                    }
-                });
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search-role-input');
+        let timeout = null;
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    document.getElementById('roles-filter-form').submit();
+                }, 600);
             });
         }
-    };
+
+        document.querySelectorAll('.delete-role-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const currentForm = this;
+                
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "{{ __('roles.delete_confirm') ?? 'This role and its permissions will be permanently deleted!' }}",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#ff3e1d',
+                        cancelButtonColor: '#8592a3',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            currentForm.submit();
+                        }
+                    });
+                } else {
+                    if(confirm("{{ __('roles.delete_confirm') ?? 'Are you sure you want to delete this role?' }}")) {
+                        currentForm.submit();
+                    }
+                }
+            });
+        });
+    });
 </script>
 @endsection

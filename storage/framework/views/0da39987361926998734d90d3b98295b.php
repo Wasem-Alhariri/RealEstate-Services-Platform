@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', __('roles.management_title')); ?>
 
-@section('title', __('admins.management_title'))
-
-@section('page-style')
+<?php $__env->startSection('page-style'); ?>
 <style>
     /* Premium Stats Cards */
     .stat-card-premium {
@@ -79,7 +77,6 @@
         color: #94a3b8;
         font-size: 1.2rem;
     }
-    /* RTL Support for search */
     html[dir="rtl"] .modern-search input {
         padding: 1rem 3rem 1rem 1rem;
     }
@@ -130,13 +127,7 @@
     }
 
     /* Avatar and Badges */
-    .admin-avatar {
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
-        object-fit: cover;
-    }
-    .admin-avatar-fallback {
+    .role-avatar {
         width: 48px;
         height: 48px;
         border-radius: 14px;
@@ -145,19 +136,19 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 700;
-        font-size: 1.1rem;
+        font-size: 1.5rem;
     }
-    .role-badge {
+    .perm-badge {
         padding: 0.4rem 1rem;
         border-radius: 10px;
         font-weight: 600;
-        font-size: 0.8rem;
-        background: rgba(105, 108, 255, 0.08);
-        color: #696cff;
+        font-size: 0.75rem;
+        background: #f1f5f9;
+        color: #475569;
         display: inline-block;
         margin-right: 0.25rem;
         margin-bottom: 0.25rem;
+        text-transform: capitalize;
     }
     
     /* Action Buttons */
@@ -202,21 +193,22 @@
         color: white;
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <!-- Header & Title -->
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h3 class="fw-bolder text-slate-800 mb-1">{{ __('admins.management_title') }}</h3>
-        <p class="text-muted mb-0">Manage system administrators, roles, and access.</p>
+        <h3 class="fw-bolder text-slate-800 mb-1"><?php echo e(__('roles.management_title') ?? 'Roles Management'); ?></h3>
+        <p class="text-muted mb-0">Manage roles and their associated permissions securely.</p>
     </div>
-    @can('create-admins')
-        <a href="{{ route('admins.create') }}" class="btn-premium-add">
-            <i class="bx bx-plus fs-5"></i> {{ __('admins.add_new') }}
+    <?php if(auth()->user()->can('create-roles')): ?>
+        <a href="<?php echo e(route('roles.create')); ?>" class="btn-premium-add">
+            <i class="bx bx-plus fs-5"></i> <?php echo e(__('roles.add_new') ?? 'Add New Role'); ?>
+
         </a>
-    @endcan
+    <?php endif; ?>
 </div>
 
 <!-- Stats Widgets -->
@@ -224,11 +216,22 @@
     <div class="col-sm-6 col-xl-4">
         <div class="stat-card-premium">
             <div class="stat-icon bg-primary bg-opacity-10 text-primary">
-                <i class="bx bx-user"></i>
+                <i class="bx bx-key"></i>
             </div>
             <div class="stat-info">
-                <h3>{{ $stats['total'] ?? 0 }}</h3>
-                <p>{{ __('admins.total_admins') }}</p>
+                <h3><?php echo e($stats['total_roles'] ?? 0); ?></h3>
+                <p><?php echo e(__('roles.total_roles') ?? 'Total Roles'); ?></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-4">
+        <div class="stat-card-premium">
+            <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+                <i class="bx bx-lock-alt"></i>
+            </div>
+            <div class="stat-info">
+                <h3><?php echo e($stats['total_perms'] ?? 0); ?></h3>
+                <p><?php echo e(__('roles.system_permissions') ?? 'Total Permissions'); ?></p>
             </div>
         </div>
     </div>
@@ -238,19 +241,8 @@
                 <i class="bx bx-user-check"></i>
             </div>
             <div class="stat-info">
-                <h3>+{{ $stats['recent'] ?? 0 }}</h3>
-                <p>{{ __('admins.last_30_days') }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-xl-4">
-        <div class="stat-card-premium">
-            <div class="stat-icon bg-danger bg-opacity-10 text-danger">
-                <i class="bx bx-shield-quarter"></i>
-            </div>
-            <div class="stat-info">
-                <h3>{{ $stats['roles_count'] ?? 0 }}</h3>
-                <p>{{ __('admins.role_assignments') }}</p>
+                <h3><?php echo e($stats['total_users'] ?? $roles->sum('users_count') ?? 0); ?></h3>
+                <p><?php echo e(__('roles.users_count') ?? 'Total Assigned Users'); ?></p>
             </div>
         </div>
     </div>
@@ -261,11 +253,11 @@
     
     <!-- Filters / Search -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h5 class="fw-bold mb-0 text-slate-800">Administrator List</h5>
-        <form action="{{ route('admins.index') }}" method="GET" id="admins-filter-form">
+        <h5 class="fw-bold mb-0 text-slate-800">System Roles</h5>
+        <form action="<?php echo e(route('roles.index')); ?>" method="GET" id="roles-filter-form">
             <div class="modern-search">
                 <i class="bx bx-search"></i>
-                <input type="text" name="search" id="search" placeholder="{{ __('admins.search_placeholder') ?? 'Search admins...' }}" value="{{ request('search') }}">
+                <input type="text" name="search" id="search-role-input" placeholder="<?php echo e(__('roles.search_placeholder') ?? 'Search roles...'); ?>" value="<?php echo e(request('search')); ?>">
             </div>
         </form>
     </div>
@@ -275,110 +267,118 @@
         <table class="premium-table">
             <thead>
                 <tr>
-                    <th>{{ __('admins.column_admin') }}</th>
-                    <th>{{ __('admins.column_roles') }}</th>
-                    <th>{{ __('admins.column_joined') }}</th>
-                    <th class="text-end">{{ __('admins.column_actions') }}</th>
+                    <th style="width: 25%"><?php echo e(__('roles.role_name') ?? 'Role Name'); ?></th>
+                    <th style="width: 40%"><?php echo e(__('roles.permissions') ?? 'Permissions'); ?></th>
+                    <th style="width: 15%"><?php echo e(__('roles.users_count') ?? 'Users'); ?></th>
+                    <th style="width: 10%"><?php echo e(__('roles.created_at') ?? 'Created Date'); ?></th>
+                    <?php if(auth()->user()->can('edit-roles') || auth()->user()->can('delete-roles')): ?>
+                        <th style="width: 10%" class="text-end"><?php echo e(__('roles.actions') ?? 'Actions'); ?></th>
+                    <?php endif; ?>
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-                @forelse($admins as $admin)
+                <?php $__empty_1 = true; $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <tr>
                         <td>
                             <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    @if($admin->getFirstMediaUrl('admin_avatars'))
-                                        <img src="{{ $admin->getFirstMediaUrl('admin_avatars') }}" alt="Avatar" class="admin-avatar shadow-sm">
-                                    @else
-                                        <div class="admin-avatar-fallback shadow-sm">
-                                            {{ Str::upper(Str::substr($admin->name, 0, 2)) }}
-                                        </div>
-                                    @endif
+                                <div class="role-avatar shadow-sm me-3">
+                                    <i class="bx bx-shield-quarter"></i>
                                 </div>
                                 <div>
-                                    <span class="fw-bold d-block text-slate-800 fs-6">{{ $admin->name }}</span>
-                                    <small class="text-muted">{{ $admin->email }}</small>
+                                    <span class="fw-bold d-block text-slate-800 fs-6"><?php echo e(strtoupper($role->name)); ?></span>
+                                    <small class="text-muted">Role ID: #<?php echo e($role->id); ?></small>
                                 </div>
                             </div>
                         </td>
+                        <td style="white-space: normal;">
+                            <?php $mainPerms = $role->permissions->take(4); ?>
+                            <?php $__empty_2 = true; $__currentLoopData = $mainPerms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $perm): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_2 = false; ?>
+                                <span class="perm-badge"><?php echo e(str_replace('-', ' ', $perm->name)); ?></span>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_2): ?>
+                                <span class="text-muted small fst-italic"><?php echo e(__('roles.no_perms') ?? 'No permissions assigned'); ?></span>
+                            <?php endif; ?>
+                            <?php if($role->permissions->count() > 4): ?>
+                                <span class="perm-badge bg-primary bg-opacity-10 text-primary cursor-pointer" title="<?php echo e($role->permissions->skip(4)->pluck('name')->implode(', ')); ?>">
+                                    +<?php echo e($role->permissions->count() - 4); ?> <?php echo e(__('roles.more') ?? 'More'); ?>
+
+                                </span>
+                            <?php endif; ?>
+                        </td>
                         <td>
-                            @forelse($admin->roles->take(2) as $role)
-                                <span class="role-badge">{{ $role->name }}</span>
-                            @empty
-                                <span class="text-muted small fst-italic">{{ __('admins.no_role') }}</span>
-                            @endforelse
-                            @if($admin->roles->count() > 2)
-                                <span class="role-badge bg-secondary bg-opacity-10 text-secondary">+{{ $admin->roles->count() - 2 }}</span>
-                            @endif
+                            <div class="d-flex align-items-center text-slate-600">
+                                <i class="bx bx-group me-2 text-primary"></i>
+                                <span class="fw-bold text-slate-800"><?php echo e($role->users_count ?? 0); ?></span>
+                            </div>
                         </td>
                         <td>
                             <div class="d-flex align-items-center text-slate-600">
                                 <i class="bx bx-calendar me-2 text-slate-400"></i>
-                                <span class="small fw-medium">{{ $admin->created_at->translatedFormat('M d, Y') }}</span>
+                                <span class="small fw-medium"><?php echo e($role->created_at->translatedFormat('M d, Y')); ?></span>
                             </div>
                         </td>
-                        <td class="text-end">
-                            <div class="d-flex justify-content-end gap-2">
-                                @can('edit-admins')
-                                    <a href="{{ route('admins.edit', $admin->id) }}" class="btn-action" title="Edit Admin">
-                                        <i class="bx bx-edit-alt"></i>
-                                    </a>
-                                @endcan
-                                @can('delete-admins')
-                                    <form action="{{ route('admins.destroy', $admin->id) }}" method="POST" class="delete-admin-form d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn-action btn-delete" title="Delete Admin">
-                                            <i class="bx bx-trash"></i>
-                                        </button>
-                                    </form>
-                                @endcan
-                            </div>
-                        </td>
+                        <?php if(auth()->user()->can('edit-roles') || auth()->user()->can('delete-roles')): ?>
+                            <td class="text-end">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit-roles')): ?>
+                                        <a href="<?php echo e(route('roles.edit', $role->id)); ?>" class="btn-action" title="Edit Role">
+                                            <i class="bx bx-edit-alt"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete-roles')): ?>
+                                        <form action="<?php echo e(route('roles.destroy', $role->id)); ?>" method="POST" class="delete-role-form d-inline">
+                                            <?php echo csrf_field(); ?>
+                                            <?php echo method_field('DELETE'); ?>
+                                            <button type="submit" class="btn-action btn-delete" title="Delete Role">
+                                                <i class="bx bx-trash"></i>
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
+                                </div>
+                            </td>
+                        <?php endif; ?>
                     </tr>
-                @empty
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <tr>
-                        <td colspan="4" class="text-center py-5">
+                        <td colspan="5" class="text-center py-5">
                             <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-3" style="width: 80px; height: 80px;">
                                 <i class="bx bx-search text-muted" style="font-size: 2.5rem;"></i>
                             </div>
-                            <h5 class="fw-bold text-slate-700">{{ __('admins.no_results') ?? 'No Administrators Found' }}</h5>
-                            <p class="text-muted mb-0">{{ request('search') ? __('admins.no_results_matching') : 'Get started by creating a new administrator.' }}</p>
+                            <h5 class="fw-bold text-slate-700"><?php echo e(__('roles.no_results') ?? 'No Roles Found'); ?></h5>
+                            <p class="text-muted mb-0"><?php echo e(request('search') ? __('roles.matching_search') ?? 'Try adjusting your search query.' : __('roles.in_database') ?? 'Get started by creating a new role.'); ?></p>
                         </td>
                     </tr>
-                @endforelse
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
 
     <!-- Pagination -->
-    @if($admins->hasPages())
+    <?php if($roles->hasPages()): ?>
         <div class="d-flex justify-content-center mt-4 pt-3 border-top border-light">
-            {{ $admins->appends(request()->query())->links('pagination::bootstrap-5') }}
+            <?php echo e($roles->appends(request()->query())->links('pagination::bootstrap-5')); ?>
+
         </div>
-    @endif
+    <?php endif; ?>
 
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('page-script')
+<?php $__env->startSection('page-script'); ?>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Search Auto-submit with debounce
-        const searchInput = document.getElementById('search');
+        const searchInput = document.getElementById('search-role-input');
         let timeout = null;
         if (searchInput) {
             searchInput.addEventListener('input', function() {
                 clearTimeout(timeout);
                 timeout = setTimeout(() => {
-                    document.getElementById('admins-filter-form').submit();
+                    document.getElementById('roles-filter-form').submit();
                 }, 600);
             });
         }
 
-        // Delete Confirmation with SweetAlert if available, fallback to confirm()
-        document.querySelectorAll('.delete-admin-form').forEach(form => {
+        document.querySelectorAll('.delete-role-form').forEach(form => {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const currentForm = this;
@@ -386,7 +386,7 @@
                 if (typeof Swal !== 'undefined') {
                     Swal.fire({
                         title: 'Are you sure?',
-                        text: "{{ __('admins.confirm_delete') ?? 'You will not be able to recover this administrator!' }}",
+                        text: "<?php echo e(__('roles.delete_confirm') ?? 'This role and its permissions will be permanently deleted!'); ?>",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#ff3e1d',
@@ -398,7 +398,7 @@
                         }
                     });
                 } else {
-                    if(confirm("{{ __('admins.confirm_delete') ?? 'Are you sure you want to delete this administrator?' }}")) {
+                    if(confirm("<?php echo e(__('roles.delete_confirm') ?? 'Are you sure you want to delete this role?'); ?>")) {
                         currentForm.submit();
                     }
                 }
@@ -406,4 +406,6 @@
         });
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\RealEstate-Services-Platform\resources\views/dashboard/roles/index.blade.php ENDPATH**/ ?>

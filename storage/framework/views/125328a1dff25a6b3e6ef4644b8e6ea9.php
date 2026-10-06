@@ -1,19 +1,18 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', __('profile.security_title') ?? 'Security Settings'); ?>
 
-@section('title', __('profile.security_title') ?? 'Security Settings')
-
-@section('page-style')
+<?php $__env->startSection('page-style'); ?>
 <style>
     .nav-pills .nav-link { transition: all 0.3s ease; border: 1px solid transparent; }
     .nav-pills .hover-bg-light:hover { background-color: #e7e7ff !important; color: #696cff !important; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important; border-color: rgba(105, 108, 255, 0.2); }
     .nav-pills .nav-link.active { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(105, 108, 255, 0.4) !important; }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">{{ __('profile.account') ?? 'Account' }} /</span> {{ __('profile.security') ?? 'Security' }}
+        <span class="text-muted fw-light"><?php echo e(__('profile.account') ?? 'Account'); ?> /</span> <?php echo e(__('profile.security') ?? 'Security'); ?>
+
     </h4>
 
     <div class="row">
@@ -21,13 +20,15 @@
             <!-- Navigation Tabs -->
             <ul class="nav nav-pills flex-column flex-md-row mb-4 gap-2">
                 <li class="nav-item">
-                    <a class="nav-link bg-white text-muted shadow-sm px-4 rounded-pill hover-bg-light" href="{{ route('profile.index') }}">
-                        <i class="bx bx-user me-2"></i> {{ __('profile.tab_profile') ?? 'Profile Details' }}
+                    <a class="nav-link bg-white text-muted shadow-sm px-4 rounded-pill hover-bg-light" href="<?php echo e(route('profile.index')); ?>">
+                        <i class="bx bx-user me-2"></i> <?php echo e(__('profile.tab_profile') ?? 'Profile Details'); ?>
+
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active shadow-sm px-4 rounded-pill" href="javascript:void(0);">
-                        <i class="bx bx-lock-alt me-2"></i> {{ __('profile.security') ?? 'Security' }}
+                        <i class="bx bx-lock-alt me-2"></i> <?php echo e(__('profile.security') ?? 'Security'); ?>
+
                     </a>
                 </li>
             </ul>
@@ -40,21 +41,22 @@
                     <!-- Avatar Section (Read-only) -->
                     <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-end gap-4 mb-5">
                         <div class="position-relative">
-                            @if(auth('web')->user()->getFirstMediaUrl('admin_avatars'))
-                                <img src="{{ auth('web')->user()->getFirstMediaUrl('admin_avatars') }}" 
+                            <?php if(auth('web')->user()->getFirstMediaUrl('admin_avatars')): ?>
+                                <img src="<?php echo e(auth('web')->user()->getFirstMediaUrl('admin_avatars')); ?>" 
                                     alt="user-avatar" 
                                     class="d-block rounded-circle border border-5 border-white shadow" 
                                     style="width: 140px; height: 140px; object-fit: cover; background: white;" />
-                            @else
+                            <?php else: ?>
                                 <div class="rounded-circle border border-5 border-white shadow bg-primary-light text-primary d-flex align-items-center justify-content-center" style="width: 140px; height: 140px; font-size: 3rem; font-weight: bold;">
-                                    {{ Str::upper(Str::substr(auth('web')->user()->name, 0, 2)) }}
+                                    <?php echo e(Str::upper(Str::substr(auth('web')->user()->name, 0, 2))); ?>
+
                                 </div>
-                            @endif
+                            <?php endif; ?>
                         </div>
                         
                         <div class="text-center text-sm-start mb-3">
-                            <h4 class="fw-bold mb-1 text-slate-800">{{ auth('web')->user()->name }}</h4>
-                            <p class="text-muted mb-0"><i class="bx bx-shield-quarter text-primary me-1"></i>{{ __('profile.security_settings') ?? 'Security Settings' }}</p>
+                            <h4 class="fw-bold mb-1 text-slate-800"><?php echo e(auth('web')->user()->name); ?></h4>
+                            <p class="text-muted mb-0"><i class="bx bx-shield-quarter text-primary me-1"></i><?php echo e(__('profile.security_settings') ?? 'Security Settings'); ?></p>
                         </div>
                     </div>
                     
@@ -65,21 +67,28 @@
                             <i class="bx bx-lock-alt fs-3"></i>
                         </div>
                         <div>
-                            <h5 class="mb-0 fw-bold text-slate-800">{{ __('profile.change_password_header') ?? 'Change Password' }}</h5>
-                            <p class="mb-0 text-muted small">{{ __('profile.password_requirements') ?? 'Ensure your account is using a long, random password to stay secure.' }}</p>
+                            <h5 class="mb-0 fw-bold text-slate-800"><?php echo e(__('profile.change_password_header') ?? 'Change Password'); ?></h5>
+                            <p class="mb-0 text-muted small"><?php echo e(__('profile.password_requirements') ?? 'Ensure your account is using a long, random password to stay secure.'); ?></p>
                         </div>
                     </div>
 
-                    <form action="{{ route('profile.password.update') }}" method="POST">
-                        @csrf
-                        @method('PUT')
+                    <form action="<?php echo e(route('profile.password.update')); ?>" method="POST">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
                         <div class="row g-4">
                             <!-- Current Password -->
                             <div class="col-md-12">
-                                <label class="form-label fw-bold text-slate-700 mb-2" for="current_password">{{ __('profile.current_password') ?? 'Current Password' }}</label>
+                                <label class="form-label fw-bold text-slate-700 mb-2" for="current_password"><?php echo e(__('profile.current_password') ?? 'Current Password'); ?></label>
                                 <div class="position-relative">
                                     <input type="password" name="current_password" id="current_password" 
-                                           class="form-control bg-light py-3 px-4 rounded-pill shadow-sm border @error('current_password') border-danger @enderror" 
+                                           class="form-control bg-light py-3 px-4 rounded-pill shadow-sm border <?php $__errorArgs = ['current_password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-danger <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
                                            placeholder="&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;" required style="padding-inline-end: 3.5rem !important;">
                                     <button type="button" class="btn border-0 position-absolute bg-transparent" 
                                             onclick="var p=document.getElementById('current_password'); var i=this.querySelector('i'); if(p.type==='password'){p.type='text';i.className='bx bx-show fs-4 text-primary';}else{p.type='password';i.className='bx bx-hide fs-4 text-muted';}" 
@@ -87,15 +96,29 @@
                                         <i class="bx bx-hide fs-4 text-muted"></i>
                                     </button>
                                 </div>
-                                @error('current_password') <div class="text-danger small mt-2 ps-3 fw-medium"><i class="bx bx-error-circle me-1"></i>{{ $message }}</div> @enderror
+                                <?php $__errorArgs = ['current_password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <div class="text-danger small mt-2 ps-3 fw-medium"><i class="bx bx-error-circle me-1"></i><?php echo e($message); ?></div> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                             </div>
                             
                             <!-- New Password -->
                             <div class="col-md-6 mt-4">
-                                <label class="form-label fw-bold text-slate-700 mb-2" for="new_password">{{ __('profile.new_password') ?? 'New Password' }}</label>
+                                <label class="form-label fw-bold text-slate-700 mb-2" for="new_password"><?php echo e(__('profile.new_password') ?? 'New Password'); ?></label>
                                 <div class="position-relative">
                                     <input type="password" name="new_password" id="new_password" 
-                                           class="form-control bg-light py-3 px-4 rounded-pill shadow-sm border @error('new_password') border-danger @enderror" 
+                                           class="form-control bg-light py-3 px-4 rounded-pill shadow-sm border <?php $__errorArgs = ['new_password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-danger <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
                                            placeholder="&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;" required style="padding-inline-end: 3.5rem !important;">
                                     <button type="button" class="btn border-0 position-absolute bg-transparent" 
                                             onclick="var p=document.getElementById('new_password'); var i=this.querySelector('i'); if(p.type==='password'){p.type='text';i.className='bx bx-show fs-4 text-primary';}else{p.type='password';i.className='bx bx-hide fs-4 text-muted';}" 
@@ -103,12 +126,19 @@
                                         <i class="bx bx-hide fs-4 text-muted"></i>
                                     </button>
                                 </div>
-                                @error('new_password') <div class="text-danger small mt-2 ps-3 fw-medium"><i class="bx bx-error-circle me-1"></i>{{ $message }}</div> @enderror
+                                <?php $__errorArgs = ['new_password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <div class="text-danger small mt-2 ps-3 fw-medium"><i class="bx bx-error-circle me-1"></i><?php echo e($message); ?></div> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                             </div>
 
                             <!-- Confirm New Password -->
                             <div class="col-md-6 mt-4">
-                                <label class="form-label fw-bold text-slate-700 mb-2" for="new_password_confirmation">{{ __('profile.confirm_new_password') ?? 'Confirm New Password' }}</label>
+                                <label class="form-label fw-bold text-slate-700 mb-2" for="new_password_confirmation"><?php echo e(__('profile.confirm_new_password') ?? 'Confirm New Password'); ?></label>
                                 <div class="position-relative">
                                     <input type="password" name="new_password_confirmation" id="new_password_confirmation" 
                                            class="form-control bg-light py-3 px-4 rounded-pill shadow-sm border" 
@@ -137,10 +167,12 @@
                         
                         <div class="d-flex align-items-center gap-3">
                             <button type="submit" class="btn btn-primary rounded-pill px-5 py-2 shadow-sm fw-bold">
-                                <i class="bx bx-save me-2"></i>{{ __('general.save_changes') ?? 'Update Password' }}
+                                <i class="bx bx-save me-2"></i><?php echo e(__('general.save_changes') ?? 'Update Password'); ?>
+
                             </button>
-                            <a href="{{ route('profile.index') }}" class="btn btn-outline-secondary rounded-pill px-4 py-2">
-                                {{ __('general.cancel') ?? 'Cancel' }}
+                            <a href="<?php echo e(route('profile.index')); ?>" class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                                <?php echo e(__('general.cancel') ?? 'Cancel'); ?>
+
                             </a>
                         </div>
                     </form>
@@ -149,4 +181,6 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\RealEstate-Services-Platform\resources\views/dashboard/profile/security.blade.php ENDPATH**/ ?>

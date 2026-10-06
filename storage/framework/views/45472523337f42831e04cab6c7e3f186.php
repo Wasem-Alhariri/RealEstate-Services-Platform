@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', __('admins.management_title')); ?>
 
-@section('title', __('admins.management_title'))
-
-@section('page-style')
+<?php $__env->startSection('page-style'); ?>
 <style>
     /* Premium Stats Cards */
     .stat-card-premium {
@@ -202,21 +200,22 @@
         color: white;
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <!-- Header & Title -->
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h3 class="fw-bolder text-slate-800 mb-1">{{ __('admins.management_title') }}</h3>
+        <h3 class="fw-bolder text-slate-800 mb-1"><?php echo e(__('admins.management_title')); ?></h3>
         <p class="text-muted mb-0">Manage system administrators, roles, and access.</p>
     </div>
-    @can('create-admins')
-        <a href="{{ route('admins.create') }}" class="btn-premium-add">
-            <i class="bx bx-plus fs-5"></i> {{ __('admins.add_new') }}
+    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create-admins')): ?>
+        <a href="<?php echo e(route('admins.create')); ?>" class="btn-premium-add">
+            <i class="bx bx-plus fs-5"></i> <?php echo e(__('admins.add_new')); ?>
+
         </a>
-    @endcan
+    <?php endif; ?>
 </div>
 
 <!-- Stats Widgets -->
@@ -227,8 +226,8 @@
                 <i class="bx bx-user"></i>
             </div>
             <div class="stat-info">
-                <h3>{{ $stats['total'] ?? 0 }}</h3>
-                <p>{{ __('admins.total_admins') }}</p>
+                <h3><?php echo e($stats['total'] ?? 0); ?></h3>
+                <p><?php echo e(__('admins.total_admins')); ?></p>
             </div>
         </div>
     </div>
@@ -238,8 +237,8 @@
                 <i class="bx bx-user-check"></i>
             </div>
             <div class="stat-info">
-                <h3>+{{ $stats['recent'] ?? 0 }}</h3>
-                <p>{{ __('admins.last_30_days') }}</p>
+                <h3>+<?php echo e($stats['recent'] ?? 0); ?></h3>
+                <p><?php echo e(__('admins.last_30_days')); ?></p>
             </div>
         </div>
     </div>
@@ -249,8 +248,8 @@
                 <i class="bx bx-shield-quarter"></i>
             </div>
             <div class="stat-info">
-                <h3>{{ $stats['roles_count'] ?? 0 }}</h3>
-                <p>{{ __('admins.role_assignments') }}</p>
+                <h3><?php echo e($stats['roles_count'] ?? 0); ?></h3>
+                <p><?php echo e(__('admins.role_assignments')); ?></p>
             </div>
         </div>
     </div>
@@ -262,10 +261,10 @@
     <!-- Filters / Search -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h5 class="fw-bold mb-0 text-slate-800">Administrator List</h5>
-        <form action="{{ route('admins.index') }}" method="GET" id="admins-filter-form">
+        <form action="<?php echo e(route('admins.index')); ?>" method="GET" id="admins-filter-form">
             <div class="modern-search">
                 <i class="bx bx-search"></i>
-                <input type="text" name="search" id="search" placeholder="{{ __('admins.search_placeholder') ?? 'Search admins...' }}" value="{{ request('search') }}">
+                <input type="text" name="search" id="search" placeholder="<?php echo e(__('admins.search_placeholder') ?? 'Search admins...'); ?>" value="<?php echo e(request('search')); ?>">
             </div>
         </form>
     </div>
@@ -275,94 +274,96 @@
         <table class="premium-table">
             <thead>
                 <tr>
-                    <th>{{ __('admins.column_admin') }}</th>
-                    <th>{{ __('admins.column_roles') }}</th>
-                    <th>{{ __('admins.column_joined') }}</th>
-                    <th class="text-end">{{ __('admins.column_actions') }}</th>
+                    <th><?php echo e(__('admins.column_admin')); ?></th>
+                    <th><?php echo e(__('admins.column_roles')); ?></th>
+                    <th><?php echo e(__('admins.column_joined')); ?></th>
+                    <th class="text-end"><?php echo e(__('admins.column_actions')); ?></th>
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-                @forelse($admins as $admin)
+                <?php $__empty_1 = true; $__currentLoopData = $admins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $admin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <tr>
                         <td>
                             <div class="d-flex align-items-center">
                                 <div class="me-3">
-                                    @if($admin->getFirstMediaUrl('admin_avatars'))
-                                        <img src="{{ $admin->getFirstMediaUrl('admin_avatars') }}" alt="Avatar" class="admin-avatar shadow-sm">
-                                    @else
+                                    <?php if($admin->getFirstMediaUrl('admin_avatars')): ?>
+                                        <img src="<?php echo e($admin->getFirstMediaUrl('admin_avatars')); ?>" alt="Avatar" class="admin-avatar shadow-sm">
+                                    <?php else: ?>
                                         <div class="admin-avatar-fallback shadow-sm">
-                                            {{ Str::upper(Str::substr($admin->name, 0, 2)) }}
+                                            <?php echo e(Str::upper(Str::substr($admin->name, 0, 2))); ?>
+
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                                 <div>
-                                    <span class="fw-bold d-block text-slate-800 fs-6">{{ $admin->name }}</span>
-                                    <small class="text-muted">{{ $admin->email }}</small>
+                                    <span class="fw-bold d-block text-slate-800 fs-6"><?php echo e($admin->name); ?></span>
+                                    <small class="text-muted"><?php echo e($admin->email); ?></small>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            @forelse($admin->roles->take(2) as $role)
-                                <span class="role-badge">{{ $role->name }}</span>
-                            @empty
-                                <span class="text-muted small fst-italic">{{ __('admins.no_role') }}</span>
-                            @endforelse
-                            @if($admin->roles->count() > 2)
-                                <span class="role-badge bg-secondary bg-opacity-10 text-secondary">+{{ $admin->roles->count() - 2 }}</span>
-                            @endif
+                            <?php $__empty_2 = true; $__currentLoopData = $admin->roles->take(2); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_2 = false; ?>
+                                <span class="role-badge"><?php echo e($role->name); ?></span>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_2): ?>
+                                <span class="text-muted small fst-italic"><?php echo e(__('admins.no_role')); ?></span>
+                            <?php endif; ?>
+                            <?php if($admin->roles->count() > 2): ?>
+                                <span class="role-badge bg-secondary bg-opacity-10 text-secondary">+<?php echo e($admin->roles->count() - 2); ?></span>
+                            <?php endif; ?>
                         </td>
                         <td>
                             <div class="d-flex align-items-center text-slate-600">
                                 <i class="bx bx-calendar me-2 text-slate-400"></i>
-                                <span class="small fw-medium">{{ $admin->created_at->translatedFormat('M d, Y') }}</span>
+                                <span class="small fw-medium"><?php echo e($admin->created_at->translatedFormat('M d, Y')); ?></span>
                             </div>
                         </td>
                         <td class="text-end">
                             <div class="d-flex justify-content-end gap-2">
-                                @can('edit-admins')
-                                    <a href="{{ route('admins.edit', $admin->id) }}" class="btn-action" title="Edit Admin">
+                                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit-admins')): ?>
+                                    <a href="<?php echo e(route('admins.edit', $admin->id)); ?>" class="btn-action" title="Edit Admin">
                                         <i class="bx bx-edit-alt"></i>
                                     </a>
-                                @endcan
-                                @can('delete-admins')
-                                    <form action="{{ route('admins.destroy', $admin->id) }}" method="POST" class="delete-admin-form d-inline">
-                                        @csrf
-                                        @method('DELETE')
+                                <?php endif; ?>
+                                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete-admins')): ?>
+                                    <form action="<?php echo e(route('admins.destroy', $admin->id)); ?>" method="POST" class="delete-admin-form d-inline">
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('DELETE'); ?>
                                         <button type="submit" class="btn-action btn-delete" title="Delete Admin">
                                             <i class="bx bx-trash"></i>
                                         </button>
                                     </form>
-                                @endcan
+                                <?php endif; ?>
                             </div>
                         </td>
                     </tr>
-                @empty
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <tr>
                         <td colspan="4" class="text-center py-5">
                             <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-3" style="width: 80px; height: 80px;">
                                 <i class="bx bx-search text-muted" style="font-size: 2.5rem;"></i>
                             </div>
-                            <h5 class="fw-bold text-slate-700">{{ __('admins.no_results') ?? 'No Administrators Found' }}</h5>
-                            <p class="text-muted mb-0">{{ request('search') ? __('admins.no_results_matching') : 'Get started by creating a new administrator.' }}</p>
+                            <h5 class="fw-bold text-slate-700"><?php echo e(__('admins.no_results') ?? 'No Administrators Found'); ?></h5>
+                            <p class="text-muted mb-0"><?php echo e(request('search') ? __('admins.no_results_matching') : 'Get started by creating a new administrator.'); ?></p>
                         </td>
                     </tr>
-                @endforelse
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
 
     <!-- Pagination -->
-    @if($admins->hasPages())
+    <?php if($admins->hasPages()): ?>
         <div class="d-flex justify-content-center mt-4 pt-3 border-top border-light">
-            {{ $admins->appends(request()->query())->links('pagination::bootstrap-5') }}
+            <?php echo e($admins->appends(request()->query())->links('pagination::bootstrap-5')); ?>
+
         </div>
-    @endif
+    <?php endif; ?>
 
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('page-script')
+<?php $__env->startSection('page-script'); ?>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Search Auto-submit with debounce
@@ -386,7 +387,7 @@
                 if (typeof Swal !== 'undefined') {
                     Swal.fire({
                         title: 'Are you sure?',
-                        text: "{{ __('admins.confirm_delete') ?? 'You will not be able to recover this administrator!' }}",
+                        text: "<?php echo e(__('admins.confirm_delete') ?? 'You will not be able to recover this administrator!'); ?>",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#ff3e1d',
@@ -398,7 +399,7 @@
                         }
                     });
                 } else {
-                    if(confirm("{{ __('admins.confirm_delete') ?? 'Are you sure you want to delete this administrator?' }}")) {
+                    if(confirm("<?php echo e(__('admins.confirm_delete') ?? 'Are you sure you want to delete this administrator?'); ?>")) {
                         currentForm.submit();
                     }
                 }
@@ -406,4 +407,6 @@
         });
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\RealEstate-Services-Platform\resources\views/dashboard/admins/index.blade.php ENDPATH**/ ?>
